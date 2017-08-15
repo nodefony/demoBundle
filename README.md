@@ -1,2 +1,0 @@
-# demoBundle
-Demo Nodefony Framework
