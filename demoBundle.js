@@ -7,14 +7,14 @@
  *
  */
 
-module.exports = nodefony.registerBundle ("demo", function(){
+module.exports = nodefony.registerBundle("demo", function () {
 
-	var demo = class demo extends nodefony.Bundle {
+  const demo = class demo extends nodefony.Bundle {
 
-		constructor(name, kernel, container){
-			super(name, kernel, container);
-		}
-	};
+    constructor(name, kernel, container) {
+      super(name, kernel, container);
+    }
+  };
 
-	return demo ;
+  return demo;
 });

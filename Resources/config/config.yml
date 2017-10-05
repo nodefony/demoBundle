@@ -4,9 +4,9 @@
 #
 # This file is YAML  FILE
 # ---
-# YAML: YAML Ain't Markup Language
+# YAML:          YAML Ain't Markup Language
 #
-# What It Is: YAML is a human friendly data serialization
+# What It Is:    YAML is a human friendly data serialization
 #   standard for all programming languages.
 #
 
@@ -14,7 +14,7 @@
 ########## NODEFONY CONFIG BUNDLE  demoBundle  ############
 name :				demoBundle
 locale :			en_en
-version :           "1.0.0"
+version :        "1.0.0"
 
 #
 #  WATCHERS
@@ -28,11 +28,11 @@ version :           "1.0.0"
 #    or
 #      watch:
 #        controller:		true
-#        config:                true
+#        config: true
 #        views:			true
-#        translations:          true
+#        translations: true
 #
-watch:                          false
+watch:           false
 
 
 #
@@ -41,14 +41,14 @@ watch:                          false
 realTimeBundle:
   system:
     reconnect:
-      handshake:                  true
-      connect:                    true
+      handshake: true
+      connect:   true
   services:
     random:
-      type:                       tcp
-      port:                       1315
-      domain:                     localhost
+      type:      tcp
+      port:      1315
+      domain:    localhost
     dmsg:
-      type:                       tcp
-      port:                       1316
-      domain:                     localhost
+      type:      tcp
+      port:      1316
+      domain:    localhost

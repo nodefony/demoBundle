@@ -1,42 +1,44 @@
 {% extends "/app/Resources/views/base.html.twig" %}
 
-{% block title %} {{ title }} {% endblock %}
+{% block title %}
+  {{ title }}
+{% endblock %}
 
 {% block stylesheets %}
 
-	{{ parent() }}
+  {{ parent() }}
 
-	<link href="{{CDN('stylesheet')}}/demoBundle/assets/css/layout.css" rel="stylesheet"/>
-	<link href="{{CDN('stylesheet')}}/frameworkBundle/vendors/dataTable/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+  <link href="{{CDN('stylesheet')}}/demoBundle/assets/css/layout.css" rel="stylesheet"/>
+  <link href="{{CDN('stylesheet')}}/frameworkBundle/vendors/dataTable/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 
 {% endblock %}
 
 {% block javascripts %}
 
-	{{ parent() }}
+  {{ parent() }}
 
-	<script type="text/javascript" src="{{CDN('javascript')}}/demoBundle/assets/js/layout.js"></script>
-	<script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/dataTables.bootstrap.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/demoBundle/assets/js/layout.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/dataTables.bootstrap.js"></script>
 
-	<script>
-		/* ---------------------------------------------- /*
+  <script>
+    /* ---------------------------------------------- /*
 		 * LANG IN URL CHANGE
 		/* ---------------------------------------------- */
-		$("#langs").bind("change",function(){
-			window.location.href = "?lang="+$(this).val();
-		})
-	</script>
+    $("#langs").bind("change", function() {
+      window.location.href = "?lang=" + $(this).val();
+    })
+  </script>
 {% endblock %}
 
 {% block body %}
-	<header class="header">
-		{{ render( controller("demoBundle:demo:nav", login ))}}
-	</header>
+  <header class="header">
+    {{ render( controller("demoBundle:demo:nav", login ))}}
+  </header>
 {% endblock %}
 
 {% block footer %}
-	<footer  >
-		{{ render( controller("demoBundle:demo:footer" )) }}
-	</footer>
+  <footer >
+    {{ render( controller("demoBundle:demo:footer" )) }}
+  </footer>
 {% endblock %}
