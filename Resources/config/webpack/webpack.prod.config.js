@@ -6,25 +6,26 @@ const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 //const public = path.resolve(__dirname, "..", "..", "public");
 //const bundleName = path.basename(path.resolve(__dirname, "..", "..", ".."));
 const commonConfig = require("./webpack.common.js");
-const UglifyEsPlugin = require('uglify-es-webpack-plugin');
-// wait new beta release for es6 minimify
-//const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
+// wait new webpack release for use webpack.optimize.UglifyJsPlugin  ( es6 minimify )
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = webpackMerge({
-  watch: false,
-  plugins: [
-    new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: {
-        discardComments: {
-          removeAll: true
-        }
-      },
-      canPrint: true
-    }),
-    new UglifyEsPlugin({
-      warnings: true,
-      compress: true
-    })
-  ]
+    watch: false,
+    plugins: [
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            },
+            canPrint: true
+        }),
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                warnings: true,
+                compress: true
+            },
+            parallel: true
+        })
+    ]
 }, commonConfig);
