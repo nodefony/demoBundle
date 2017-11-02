@@ -1,41 +1,26 @@
 {% extends "../layouts/layout.html.twig" %}
 
 {% block title %}
-
   HTTP REQUEST
-
-{% endblock %}
-
-{% block stylesheets %}
-  {{ parent() }}
-
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
-
   <script>
-
     $(document).ready(function() {
-
       $.ajax({
-        url: "{{path(" xmlAsyncResponse ")}}",
+        url: "{{url(" xmlAsyncResponse ")}}",
         success: function(data) {
           var res = stage.xml.parseXml(data);
         }
-
-      })
+      });
     })
   </script>
-
 {% endblock %}
 
 {% block body %}
-
   {{parent()}}
-
   <div class="container">
-
     <div class="row">
       <div class="panel panel-default ">
         <!-- Default panel contents -->
@@ -53,7 +38,5 @@
         </div>
       </div>
     </div>
-
   </div>
-
 {% endblock %}

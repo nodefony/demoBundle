@@ -1,7 +1,6 @@
 # Security
 security:
     firewalls:
-
         # SASL  DEMO SECURITY AREA
         demo_area:
             pattern:                                ^/demo
@@ -23,9 +22,9 @@ security:
                   Access-Control-Max-Age:           10
             remember_me:                            false           #TODO
             logout:                                 /logout
-            context:                                ~
+            context:                                sasl
             stateless:                              false           #TODO
-            redirectHttps:                         true
+            redirectHttps:                          true
 
         # passport-basic  DEMO SECURITY AREA
         basic_area:

@@ -1,14 +1,6 @@
 /*
- *
- *
- *
  *	CONTROLLER finder
- *
- *
- *
- *
  */
-
 module.exports = nodefony.registerController("finder", function () {
 
   const search = function (path) {
@@ -70,8 +62,6 @@ module.exports = nodefony.registerController("finder", function () {
         }
         break;
       }
-      //if (! response ) throw new Error("Search File system Error")
-      //return response ;
     } catch (e) {
       throw e;
     }
@@ -122,20 +112,17 @@ module.exports = nodefony.registerController("finder", function () {
       let query = this.getParameters("query");
       let path = null;
       if (!query.get.path) {
-        path = this.get("kernel").rootDir + "/src/bundles/demoBundle/Resources/images";
+        path = this.kernel.rootDir + "/src/bundles/demoBundle/Resources/images";
       } else {
         path = query.get.path;
       }
-
       // secure path
-      //var securePath = this.get("kernel").rootDir ;
-      let securePath = this.get("kernel").getBundles("demo").path;
+      let securePath = this.kernel.getBundles("demo").path;
       let reg = new RegExp("^" + securePath);
       if (!reg.test(path)) {
         throw {
           status: 401
         };
-        //var path =  this.get("kernel").rootDir+"/src/bundles/demoBundle/Resources/images"
       }
       try {
         search.call(this, path);

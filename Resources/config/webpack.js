@@ -1,12 +1,21 @@
 const path = require("path");
 //const webpack = require('webpack');
 const ExtractTextPluginCss = require('extract-text-webpack-plugin');
-const public = path.resolve(__dirname, "..", "..", "public");
-const bundleName = path.basename(path.resolve(__dirname, "..", "..", ".."));
+const public = path.resolve(__dirname, "..", "public");
+const bundleName = path.basename(path.resolve(__dirname, "..", ".."));
+const webpackMerge = require('webpack-merge');
 
-module.exports = {
+let config = null;
+if (kernel.environment === "dev") {
+  config = require("./webpack/webpack.dev.config.js");
+} else {
+  config = require("./webpack/webpack.prod.config.js");
+}
+
+module.exports = webpackMerge({
   context: public,
   target: "web",
+  //watch: false,
   entry: {
     layout: "./js/layout.js",
     demo: "./js/index.js",
@@ -79,4 +88,4 @@ module.exports = {
       filename: "./assets/css/[name].css",
     })
   ]
-};
+}, config);

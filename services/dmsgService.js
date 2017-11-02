@@ -77,8 +77,8 @@ module.exports = nodefony.registerService("dmsg", function () {
         this.watcher.listen(this, 'onError', (error) => {
           this.realTime.logger(error, "ERROR");
         });
-        this.watcher.listen(this, 'onClose', (path) => {
-          this.realTime.logger(path);
+        this.watcher.listen(this, 'onClose', (watcher) => {
+          //this.realTime.logger(watcher);
         });
       } catch (e) {
         this.logger(e, "ERROR");

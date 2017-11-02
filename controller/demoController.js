@@ -47,7 +47,7 @@ module.exports = nodefony.registerController("demo", function () {
      *
      */
     renderviewAction() {
-      let content = this.renderView('demoBundle:Default:documentation.html.twig', {
+      let content = this.renderView('demoBundle:demo:documentation.html.twig', {
         name: "render"
       });
       return this.renderResponse(content);
@@ -105,90 +105,6 @@ module.exports = nodefony.registerController("demo", function () {
       //return this.redirect ( this.generateUrl("user", {name:"cci"} );
     }
 
-    /**
-     *
-     *	DEMO WEBSOCKET
-     */
-    websoketAction(message) {
-      let context = this.getContext();
-      switch (this.getMethod()) {
-      case "GET":
-        return this.render('demoBundle:Default:websocket.html.twig', {
-          name: "websoket"
-        });
-      case "WEBSOCKET":
-        if (message) {
-          // MESSAGES CLIENT
-          this.logger(message.utf8Data, "INFO");
-        } else {
-          // PREPARE  PUSH MESSAGES SERVER
-          // SEND MESSAGES TO CLIENTS
-          let i = 0;
-          let id = setInterval(() => {
-            let mess = "I am a  message " + i + "\n";
-            this.logger("SEND TO CLIENT :" + mess, "INFO");
-            //context.send(mess);
-            this.renderResponse(mess);
-            i++;
-          }, 1000);
-
-          setTimeout(() => {
-            clearInterval(id);
-            // close reason , descripton
-            context.close(1000, "NODEFONY CONTROLLER CLOSE SOCKET");
-            id = null;
-          }, 10000);
-          this.context.listen(this, "onClose", () => {
-            if (id) {
-              clearInterval(id);
-            }
-          });
-        }
-        break;
-      default:
-        throw new Error("REALTIME METHOD NOT ALLOWED");
-      }
-    }
-
-    /**
-     *
-     *	DEMO ORM ASYNC CALL WITHOUT ENTITIES
-     *	SQL SELECT
-     *
-     */
-    querySqlAction() {
-      let orm = this.getORM();
-      let nodefonyDb = orm.getConnection("nodefony");
-      return nodefonyDb.query('SELECT * FROM users')
-        .then((result) => {
-          return this.render('demoBundle:orm:orm.html.twig', {
-            users: result[0],
-          });
-        });
-    }
-
-    /**
-     *
-     *	DEMO ORM ASYNC CALL WITHOUT ENTITIES
-     *	SQL WITH JOIN
-     *
-     *
-     */
-    querySqlJoinAction() {
-      let orm = this.getORM();
-      let nodefonyDb = orm.getConnection("nodefony");
-      return nodefonyDb.query('SELECT * FROM sessions S LEFT JOIN users U on U.id = S.user_id ')
-        .then((result) => {
-          let joins = result[0];
-          for (let i = 0; i < joins.length; i++) {
-            joins[i].metaBag = JSON.parse(joins[i].metaBag);
-          }
-          return this.render('demoBundle:orm:orm.html.twig', {
-            joins: joins,
-          });
-        });
-    }
-
     readmeAction() {
       let Path = this.kernel.rootDir + '/README.md';
       let file = new nodefony.fileClass(Path);
@@ -196,7 +112,7 @@ module.exports = nodefony.registerController("demo", function () {
         linkify: true,
         typographer: true
       });
-      return this.render('demoBundle:Default:documentation.html.twig', {
+      return this.render('demoBundle:demo:documentation.html.twig', {
         html: res
       });
     }
@@ -232,12 +148,12 @@ module.exports = nodefony.registerController("demo", function () {
       if (docBundle) {
         return this.forward("documentationBundle:default:navDoc");
       }
-      return this.render('demoBundle:Default:navDoc.html.twig');
+      return this.render('demoBundle:demo:navDoc.html.twig');
     }
 
     /**
      *
-     *	DEMO footer
+     *	 footer
      *
      *
      */
@@ -334,118 +250,7 @@ module.exports = nodefony.registerController("demo", function () {
       });
     }
 
-    /**
-     *
-     *	DEMO ORM ASYNC CALL WITH ENTITIES
-     *
-     */
-    sequelizeAction() {
-      let orm = this.getORM();
-      let sessionEntity = orm.getEntity("session");
-      let userEntity = orm.getEntity("user");
 
-      // SIMPLE ORM CALL RENDER WITH SEQUELIZE PROMISE
-      /*return sessionEntity.findAll()
-      .then( (results) => {
-      	//sessions = results;
-      	return this.render('demoBundle:orm:orm.html.twig', {
-      		sessions:results,
-      	});
-      })
-      .catch(function(error){
-      	throw error ;
-      })
-      return ;*/
-
-      // MULTIPLE ORM CALL ASYNC RENDER WITH PROMISE
-      return Promise.all([sessionEntity.findAll(), userEntity.findAll()])
-        .then((result) => {
-          return this.render('demoBundle:orm:orm.html.twig', {
-            sessions: result[0],
-            users: result[1],
-          });
-        }).catch((error) => {
-          this.createException(error);
-        });
-    }
-
-    /**
-     *
-     *	DEMO ORM INSERT ENTITIES
-     *
-     */
-    addUserAction() {
-      let orm = this.getORM();
-      let userEntity = orm.getEntity("user");
-      let users = null;
-      // FORM DATA
-      let query = this.getParameters("query");
-
-      // here start session for flashbag because action is not on secure area and not autostart session
-      if (!this.context.session) {
-        this.startSession("default", (error /*, session*/ ) => {
-          if (error) {
-            this.setFlashBag("error", error);
-            return this.redirect(this.generateUrl("subscribe"));
-          }
-          // GET FACTORY SECURE TO ENCRYPTE PASSWORD
-          //let firewall = this.get("security");
-          //let area = firewall.getSecuredArea("demo_area") ;
-          //let factory = area.getFactory();
-          //let realm = factory.settings.realm ;
-          //let cryptpwd = factory.generatePasswd(realm, query.post.usernameCreate, query.post.passwordCreate);
-          userEntity.create({
-              username: query.post.usernameCreate,
-              email: query.post.emailCreate,
-              password: query.post.passwordCreate,
-              name: query.post.nameCreate,
-              surname: query.post.surnameCreate,
-            })
-            .then((results) => {
-              users = results;
-              this.setFlashBag("adduser", " Add user  : " + query.post.usernameCreate + " OK");
-              return this.redirect(this.generateUrl("saslArea"));
-            })
-            .catch((error) => {
-              this.logger(util.inspect(error.errors));
-              this.setFlashBag("error", error.errors[0].message);
-              return this.redirect(this.generateUrl("subscribe"));
-            });
-        });
-      } else {
-        // GET FACTORY SECURE TO ENCRYPTE PASSWORD
-        //let firewall = this.get("security");
-        //let area = firewall.getSecuredArea("demo_area") ;
-        //let factory = area.getFactory();
-        //let realm = factory.settings.realm ;
-        //let cryptpwd = factory.generatePasswd(realm, query.post.usernameCreate, query.post.passwordCreate);
-        return this.userEntity.create({
-            username: query.post.usernameCreate,
-            email: query.post.emailCreate,
-            password: query.post.passwordCreate,
-            name: query.post.nameCreate,
-            surname: query.post.surnameCreate,
-          })
-          .then((results) => {
-            users = results;
-            this.getSession().invalidate();
-            this.setFlashBag("adduser", " Add user  : " + query.post.usernameCreate + " OK");
-            return this.redirect(this.generateUrl("saslArea"));
-
-          })
-          .catch((error) => {
-            if (error.errors) {
-              this.logger(util.inspect(error.errors));
-              this.setFlashBag("error", error.errors[0].message);
-              return this.redirect(this.generateUrl("subscribe"));
-            } else {
-              this.logger(util.inspect(error), "ERROR");
-              this.setFlashBag("error", error.message);
-              return this.redirect(this.generateUrl("subscribe"));
-            }
-          });
-      }
-    }
 
     /*
      *
@@ -522,7 +327,7 @@ module.exports = nodefony.registerController("demo", function () {
           code = result[2].code;
           err = result[2].err;
           this.logger("PROMISE SYSCALL DONE", "DEBUG");
-          return this.render("demoBundle:Default:exec.html.twig", {
+          return this.render("demoBundle:demo:exec.html.twig", {
             hostname: hostname,
             ping: ping,
             pwd: pwd,
@@ -596,7 +401,7 @@ module.exports = nodefony.registerController("demo", function () {
           bodyRaw += chunk;
         });
         res.on('end', () => {
-          this.renderAsync("demoBundle:Default:httpRequest.html.twig", {
+          this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
             host: host,
             type: type,
             bodyRaw: bodyRaw,
@@ -605,7 +410,7 @@ module.exports = nodefony.registerController("demo", function () {
       });
       req.on('error', (e) => {
         this.logger('Problem with request: ' + e.message, "ERROR");
-        this.renderAsync("demoBundle:Default:httpRequest.html.twig", {
+        this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
           host: host,
           type: type,
           bodyRaw: e,
@@ -625,58 +430,6 @@ module.exports = nodefony.registerController("demo", function () {
       });
     }
 
-    /*
-     *
-     *	UPLOAD
-     *
-     */
-    indexUploadAction() {
-      return this.render('demoBundle:demo:upload2.html.twig');
-    }
-
-    uploadAction() {
-
-      let files = this.getParameters("query.files");
-      let target = path.resolve(this.kernel.rootDir + "/" + "src", "bundles", "demoBundle", "Resources", "upload");
-
-      for (let i = 0; i < files.length; i++) {
-        files[i].move(target);
-      }
-
-      if (!this.isAjax()) {
-        return this.redirect(this.generateUrl("finder", {
-          queryString: {
-            "path": target
-          }
-        }));
-      } else {
-        let res = {
-          "files": [],
-          "metas": []
-        };
-        for (let file in files) {
-          let name = files[file].realName();
-          res.files.push(target + "/" + name);
-          let meta = {
-            date: new Date(),
-            extention: files[file].getExtention(),
-            file: target + "/" + name,
-            name: name,
-            old_name: files[file].name,
-            size: files[file].stats.size,
-            size2: files[file].stats.size,
-            type: files[file].getMimeType().split("/")
-          };
-          res.metas.push(meta);
-        }
-        return this.renderResponse(
-          JSON.stringify(res),
-          200, {
-            'Content-Type': 'application/json; charset=utf-8'
-          }
-        );
-      }
-    }
   };
 
   return demoController;

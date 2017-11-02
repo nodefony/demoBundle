@@ -1,30 +1,21 @@
 {% extends "../layouts/layout.html.twig" %}
 
 {% block title %}
-
   WEBSOCKET REQUEST
-
-{% endblock %}
-
-{% block stylesheets %}
-  {{ parent() }}
-
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
-
   <script>
-
     $(document).ready(function() {
       var location = window.location;
       var protocol = location.protocol;
       switch (protocol) {
         case "https:":
-          var socket = new WebSocket("wss://" + location.host + "{{path('websoket')}}");
+          var socket = new WebSocket("wss://" + location.host + "{{url('websocket')}}");
           break;
         case "http:":
-          var socket = new WebSocket("ws://" + location.host + "{{path('websoket')}}");
+          var socket = new WebSocket("ws://" + location.host + "{{url('websocket')}}");
           break;
       }
       socket.onopen = function(event) {
@@ -33,7 +24,6 @@
         $("#result").append('WEBSOCKET CLIENT SEND : ' + toSend + "\n");
         socket.send(toSend);
       };
-
       socket.onerror = function(error) {
         $("#result").append('WEBSOCKET SOCKET ERROR : ' + error);
       };
@@ -45,15 +35,11 @@
       };
     })
   </script>
-
 {% endblock %}
 
 {% block body %}
-
   {{parent()}}
-
   <div class="container">
-
     <div class="row">
       <div class="panel panel-default ">
         <!-- Default panel contents -->
@@ -62,13 +48,9 @@
           </strong>
         </div>
         <div class="panel-body">
-          <pre id="result">
-
-					</pre>
+          <pre id="result"></pre>
         </div>
       </div>
     </div>
-
   </div>
-
 {% endblock %}
