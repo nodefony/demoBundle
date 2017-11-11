@@ -1,5 +1,3 @@
-module.exports = nodefony.registerController("webAudio", function () {
-
   /**
    *	The class is a **`default` CONTROLLER** .
    *	@module
@@ -10,7 +8,7 @@ module.exports = nodefony.registerController("webAudio", function () {
    *	@param {class} context
    *
    */
-  const webAudio = class webAudio extends nodefony.controller {
+  module.exports = class webAudioController extends nodefony.controller {
 
     constructor(container, context) {
       super(container, context);
@@ -25,6 +23,3 @@ module.exports = nodefony.registerController("webAudio", function () {
       return this.render("demoBundle:webAudio:mix2.html.twig");
     }
   };
-
-  return webAudio;
-});

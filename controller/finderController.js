@@ -1,9 +1,53 @@
 /*
  *	CONTROLLER finder
  */
-module.exports = nodefony.registerController("finder", function () {
+module.exports = class finderController extends nodefony.controller {
 
-  const search = function (path) {
+  constructor(container, context) {
+    super(container, context);
+  }
+
+  indexAction() {
+    let query = this.getParameters("query");
+    let path = null;
+    if (!query.get.path) {
+      path = this.kernel.rootDir + "/src/bundles/demoBundle/Resources/images";
+    } else {
+      path = query.get.path;
+    }
+    // secure path
+    let securePath = this.kernel.getBundles("demo").path;
+    let reg = new RegExp("^" + securePath);
+    if (!reg.test(path)) {
+      throw {
+        status: 401
+      };
+    }
+    try {
+      this.search(path);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  downloadAction() {
+    let path = null;
+    let query = this.getParameters("query");
+    if (!query.get.path) {
+      throw new Error("Download Not path to host");
+    } else {
+      path = query.get.path;
+    }
+    let file = new nodefony.fileClass(path);
+
+    try {
+      return this.encode(file);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  search(path) {
     //let response = null;
     try {
       var file = new nodefony.fileClass(path);
@@ -58,17 +102,16 @@ module.exports = nodefony.registerController("finder", function () {
           });
           break;
         default:
-          encode.call(this, file);
+          this.encode(file);
         }
         break;
       }
     } catch (e) {
       throw e;
     }
-  };
+  }
 
-
-  const encode = function (file) {
+  encode(file) {
     switch (true) {
 
     case /^image/.test(file.mimeType):
@@ -100,53 +143,5 @@ module.exports = nodefony.registerController("finder", function () {
         throw error;
       }
     }
-  };
-
-  const finderController = class finderController extends nodefony.controller {
-
-    constructor(container, context) {
-      super(container, context);
-    }
-
-    indexAction() {
-      let query = this.getParameters("query");
-      let path = null;
-      if (!query.get.path) {
-        path = this.kernel.rootDir + "/src/bundles/demoBundle/Resources/images";
-      } else {
-        path = query.get.path;
-      }
-      // secure path
-      let securePath = this.kernel.getBundles("demo").path;
-      let reg = new RegExp("^" + securePath);
-      if (!reg.test(path)) {
-        throw {
-          status: 401
-        };
-      }
-      try {
-        search.call(this, path);
-      } catch (e) {
-        throw e;
-      }
-    }
-
-    downloadAction() {
-      let path = null;
-      let query = this.getParameters("query");
-      if (!query.get.path) {
-        throw new Error("Download Not path to host");
-      } else {
-        path = query.get.path;
-      }
-      let file = new nodefony.fileClass(path);
-
-      try {
-        return encode.call(this, file);
-      } catch (e) {
-        throw e;
-      }
-    }
-  };
-  return finderController;
-});
+  }
+};
