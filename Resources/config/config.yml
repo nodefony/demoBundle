@@ -14,7 +14,6 @@
 ########## NODEFONY CONFIG BUNDLE  demoBundle  ############
 name :				demoBundle
 locale :			en_en
-version :        "1.0.0"
 
 #
 #  WATCHERS
