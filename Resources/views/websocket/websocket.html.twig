@@ -12,10 +12,10 @@
       var protocol = location.protocol;
       switch (protocol) {
         case "https:":
-          var socket = new WebSocket("wss://" + location.host + "{{url('websocket')}}");
+          var socket = new WebSocket("wss://{{host}}{{url('websocket')}}");
           break;
         case "http:":
-          var socket = new WebSocket("ws://" + location.host + "{{url('websocket')}}");
+          var socket = new WebSocket("ws://{{host}}{{url('websocket')}}");
           break;
       }
       socket.onopen = function(event) {
