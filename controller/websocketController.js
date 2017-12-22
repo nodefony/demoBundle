@@ -12,7 +12,7 @@ module.exports = class websocketController extends nodefony.controller {
     switch (this.getMethod()) {
     case "GET":
       let server = null;
-      switch (this.context.protocol) {
+      switch (this.context.scheme) {
       case "http":
         server = this.get("httpServer");
         break;
