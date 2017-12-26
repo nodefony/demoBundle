@@ -9,49 +9,7 @@ const realtime = require("./routing/realtime.js");
 const webaudio = require("./routing/webaudio.js");
 
 module.exports = nodefony.extend(orm, login, upload, firewall, finder, websocket, realtime, webaudio, {
-  // HOME
-  demo: {
-    pattern: "/home",
-    defaults: {
-      controller: "demoBundle:demo:index"
-    }
-  },
-  syscall: {
-    pattern: "/syscall",
-    defaults: {
-      controller: "demoBundle:demo:syscall"
-    },
-    requirements: {
-      method: "GET"
-    }
-  },
-  httpRequest: {
-    pattern: "/httpRequest",
-    defaults: {
-      controller: "demoBundle:demo:httpRequest"
-    },
-    requirements: {
-      method: "GET"
-    }
-  },
-  xmlResponse: {
-    pattern: "/xmlResponse",
-    defaults: {
-      controller: "demoBundle:demo:rawResponseSync"
-    },
-    requirements: {
-      method: "GET"
-    }
-  },
-  xmlAsyncResponse: {
-    pattern: "/xmlAsyncResponse",
-    defaults: {
-      controller: "demoBundle:demo:rawResponseAsync"
-    },
-    requirements: {
-      method: "GET"
-    }
-  },
+
   redirect: {
     pattern: "/redirect",
     defaults: {

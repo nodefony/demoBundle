@@ -3,10 +3,11 @@
  *	CONTROLLER default
  *
  */
-let execSync = require('child_process').execSync;
-let exec = require('child_process').exec;
-let spawn = require('child_process').spawn;
-
+const execSync = require('child_process').execSync;
+const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
+const http = require("http");
+const https = require("https");
 
 module.exports = class demoController extends nodefony.controller {
 
@@ -16,8 +17,8 @@ module.exports = class demoController extends nodefony.controller {
 
   /**
    *
-   *	DEMO index
-   *
+   *    @Route ("/home",
+   *      name="demo")
    */
   indexAction() {
     // return  OBJECT by default view is : demoBundle:demo:index.html.twig
@@ -198,7 +199,9 @@ module.exports = class demoController extends nodefony.controller {
   /**
    *
    *	DEMO RENDER RAW RESPONSE  SYNC
-   *
+   *  @Method ({"GET"})
+   *  @Route ("/xmlResponse",
+   *      name="xmlResponse")
    */
   rawResponseSyncAction() {
     // override timeout response
@@ -220,7 +223,9 @@ module.exports = class demoController extends nodefony.controller {
   /**
    *
    *	DEMO RENDER RAW RESPONSE ASYNC
-   *
+   *  @Method ({"GET"})
+   *  @Route ("/xmlAsyncResponse",
+   *      name="xmlAsyncResponse")
    */
   rawResponseAsyncAction() {
     let settings = this.kernel.settings;
@@ -248,6 +253,9 @@ module.exports = class demoController extends nodefony.controller {
   /*
    *
    *	SYSTEM CALL NODEJS WITH PROMISE
+   *  @Method ({"GET"})
+   *  @Route ("/syscall",
+   *      name="syscall")
    */
   syscallAction() {
     let tab = [];
@@ -337,6 +345,9 @@ module.exports = class demoController extends nodefony.controller {
   /*
    *
    *	HTTP REQUEST FOR PROXY
+   *  @Method ({"GET"})
+   *  @Route ("/httpRequest",
+   *      name="httpRequest")
    */
   httpRequestAction() {
     // hide debug bar
