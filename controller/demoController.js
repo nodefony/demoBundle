@@ -216,7 +216,7 @@ module.exports = class demoController extends nodefony.controller {
 				</kernel>\
 			</nodefony></xml>';
     return this.renderResponse(content, 200, {
-      "content-type": "Application/xml"
+      "Content-Type": "Application/xml"
     });
   }
 
@@ -243,7 +243,7 @@ module.exports = class demoController extends nodefony.controller {
 				</kernel>\
 				</nodefony></xml>';
       return this.renderResponse(content, 200, {
-        "content-type": "Application/xml"
+        "Content-Type": "Application/xml"
       });
     });
   }
