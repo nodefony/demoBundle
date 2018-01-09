@@ -11,7 +11,7 @@ module.exports = class websocketController extends nodefony.controller {
   websocketAction(message) {
     switch (this.getMethod()) {
     case "GET":
-      let server = null;
+      /*let server = null;
       switch (this.context.scheme) {
       case "http":
         server = this.get("httpServer");
@@ -19,10 +19,10 @@ module.exports = class websocketController extends nodefony.controller {
       case "https":
         server = this.get("httpsServer");
         break;
-      }
+      }*/
       return this.render('demoBundle:websocket:websocket.html.twig', {
         name: "websoket",
-        host: server.domain + ":" + server.port
+        host: this.request.host
       });
     case "WEBSOCKET":
       if (message) {
