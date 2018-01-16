@@ -128,6 +128,7 @@ module.exports = class demoController extends nodefony.controller {
       audio: audio,
       webrtc: this.kernel.getBundles("webrtc"),
       angular: this.kernel.getBundles("angular"),
+      react: this.kernel.getBundles("react"),
       login: login
     });
   }
