@@ -5,8 +5,7 @@
 {% block stylesheets %}
   {{ parent() }}
 
-  <!--link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/assets/css/login.css" /-->
-  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/css//login/style.css"/>
+  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/css/login/style.css"/>
 
 {% endblock %}
 
@@ -57,23 +56,15 @@
       </div>
       <!-- end brand -->
       <div class="login-content">
-        {% if type == "passport-local" %}
-          <form id="login" action="{{path('localArea')}}" method="POST" class="margin-bottom-0">
+
+          <form id="login" action="{{url('localArea')}}" method="POST" class="margin-bottom-0">
             <div class="form-group m-b-20">
               <input id="email" name="email" type="text" class="form-control input-lg" placeholder="Login"/>
             </div>
             <div class="form-group m-b-20">
               <input id="passwd" name="passwd" type="password" class="form-control input-lg" placeholder="Password"/>
             </div>
-          {% else %}
-            <form id="login" action="{{path('saslArea')}}" method="POST" class="margin-bottom-0">
-              <div class="form-group m-b-20">
-                <input id="email" type="text" class="form-control input-lg" placeholder="Login"/>
-              </div>
-              <div class="form-group m-b-20">
-                <input id="passwd" type="password" class="form-control input-lg" placeholder="Password"/>
-              </div>
-            {% endif %}
+
 
             <div class="checkbox m-b-20">
               <label>
@@ -120,7 +111,6 @@
       window.loginType = "{{type}}";
     </script>
     <!-- ================== BEGIN BASE JS ================== -->
-    <script type="text/javascript" src="{{CDN('javascript')}}/securityBundle/js/login.js"></script>
 
     <script type="text/javascript" src="{{CDN('javascript')}}/demoBundle/assets/js/login.js"></script>
 

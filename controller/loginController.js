@@ -34,9 +34,6 @@ module.exports = class loginController extends nodefony.controller {
       log = {};
     }
     switch (type) {
-    case "nodefony-sasl":
-      log.type = type;
-      return this.render("demoBundle:login:login.html.twig", log);
     case "passport-local":
       log.type = type;
       return this.render("demoBundle:login:login.html.twig", log);

@@ -8,12 +8,7 @@ module.exports = {
       controller: "frameworkBundle:default:401"
     }
   },
-  saslArea: {
-    pattern: "/demo",
-    defaults: {
-      controller: "frameworkBundle:default:401"
-    }
-  },
+
   //LOCAL AREA
   localArea: {
     pattern: "/local",
