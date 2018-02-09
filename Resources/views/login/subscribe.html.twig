@@ -83,7 +83,6 @@
       -webkit-border-radius: 50%;
       border-radius: 50%;
     }
-
   </style>
 {% endblock %}
 
@@ -125,34 +124,23 @@
 
           <div class="account-wall">
             <div id="my-tab-content" class="tab-content">
-              <!--div class="tab-pane active" id="homelogin">
-								<img class="profile-img" src="/demoBundle/images/user.png" alt=""/>
-								<form  id="login" class="form-signin" action="{{path("demoSecure")}}" method="POST">
-									<input id="email" type="text" class="form-control"  placeholder="{{"user"|trans}}" required autofocus>
-									<input id="password" type="password" class="form-control" placeholder="{{"pwd"|trans}}" required>
-									<input id="valid" type="submit" class="btn btn-lg btn-default btn-block" value={{"validation"|trans}} />
-								</form>
-								<div class="checkbox text-center">
-									<p> <strong>{{"user"|trans}} :</strong> admin  <strong> {{"pwd"|trans}} </strong>: admin </p>
-									<p> <strong>{{"user"|trans}} :</strong> 1000  <strong> {{"pwd"|trans}} </strong>: 1234 </p>
-								</div>
-								<div id="tabs" data-tabs="tabs">
-									<p class="text-center"><a href="#register" data-toggle="tab">{{"need"|trans}}</a></p>
-								</div>
-							</div-->
+              <!--div class="tab-pane active" id="homelogin"> <img class="profile-img" src="/demoBundle/images/user.png" alt=""/> <form id="login" class="form-signin" action="{{path("demoSecure")}}" method="POST"> <input id="email" type="text" class="form-control"
+              placeholder="{{"user"|trans}}" required autofocus> <input id="password" type="password" class="form-control" placeholder="{{"pwd"|trans}}" required> <input id="valid" type="submit" class="btn btn-lg btn-default btn-block" value={{"validation"|trans}}
+              /> </form> <div class="checkbox text-center"> <p> <strong>{{"user"|trans}} :</strong> admin <strong> {{"pwd"|trans}} </strong>: admin </p> <p> <strong>{{"user"|trans}} :</strong> 1000 <strong> {{"pwd"|trans}} </strong>: 1234 </p> </div> <div
+              id="tabs" data-tabs="tabs"> <p class="text-center"><a href="#register" data-toggle="tab">{{"need"|trans}}</a></p> </div> </div-->
               <!-- register -->
               <div class="tab-pane active" id="register">
-                <form id="create" class="form-signin" action="{{ path(" adduser") }}" method="POST">
-                  <input name="usernameCreate" type="text" class="form-control" placeholder="{{" user"|trans}}" required>
-                  <input name="nameCreate" type="text" class="form-control" placeholder="{{" name"|trans}}" required>
-                  <input name="surnameCreate" type="text" class="form-control" placeholder="{{" surname"|trans}}" required>
-                  <input name="emailCreate" type="email" class="form-control" placeholder="{{" email"|trans}}">
-                  <input name="passwordCreate" type="password" class="form-control" placeholder="{{" pwd"|trans}}" required>
-                  <input id="submitCreate" type="submit" class="btn btn-lg btn-default btn-block" value="{{" validation"|trans}}"/>
+                <form id="create" class="form-signin" action="{{ path(" adduser") }}"="adduser") }}"" method="POST">
+                  <input name="usernameCreate" type="text" class="form-control" placeholder="{{" user"|trans}}"="user"|trans}}"" required="required">
+                  <input name="nameCreate" type="text" class="form-control" placeholder="{{" name"|trans}}"="name"|trans}}"" required="required">
+                  <input name="surnameCreate" type="text" class="form-control" placeholder="{{" surname"|trans}}"="surname"|trans}}"" required="required">
+                  <input name="emailCreate" type="email" class="form-control" placeholder="{{" email"|trans}}"="email"|trans}}"">
+                  <input name="passwordCreate" type="password" class="form-control" placeholder="{{" pwd"|trans}}"="pwd"|trans}}"" required="required">
+                  <input id="submitCreate" type="submit" class="btn btn-lg btn-default btn-block" value="{{" validation"|trans}}"="validation"|trans}}""/>
                 </form>
                 <div id="tabs" data-tabs="tabs">
                   <p class="text-center">
-                    <a href="{{path('saslArea')}}">{{"have"|trans}}</a>
+                    <a href="{{path('localArea')}}">{{"have"|trans}}</a>
                   </p>
                 </div>
               </div>

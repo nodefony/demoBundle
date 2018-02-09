@@ -7,7 +7,9 @@
   "keywords": [
     "nodefony"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "3.3.7"
+  },
   "devDependencies": {},
   "author": "cci <christophe.camensuli@gmail.com>",
   "license": "CECILL-B",

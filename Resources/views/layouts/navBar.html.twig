@@ -13,7 +13,7 @@
       </button>
       <a><img alt="nodefony" style="margin-left:0px ;margin-top:10px ;float:left" width="32px" height="29px" src="/frameworkBundle/images/nodefony-logo.png">
         <a>
-          <a class="navbar-brand text-primary" href="{{url(" home")}}" style="margin-left:0px">
+          <a class="navbar-brand text-primary" href="{{url('home')}}" style="margin-left:0px">
             <strong class="text-primary">NODEFONY</strong>
           </a>
         </div>
@@ -28,54 +28,54 @@
               <ul class="dropdown-menu">
                 {% if angular %}
                   <li>
-                    <a href="{{url(" angular")}}">ANGULAR</a>
+                    <a href="{{url('angular')}}">ANGULAR</a>
                   </li>
                   <li role="separator" class="divider"></li>
                 {% endif %}
                 {% if react %}
                   <li>
-                    <a href="{{url(" react")}}">React</a>
+                    <a href="{{url('react')}}">React</a>
                   </li>
                   <li role="separator" class="divider"></li>
                 {% endif %}
                 <li>
-                  <a href="{{url(" finder")}}">DEMO FINDER</a>
+                  <a href="{{url('finder')}}">DEMO FINDER</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" upload")}}">DEMO UPLOAD</a>
+                  <a href="{{url('upload')}}">DEMO UPLOAD</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" orm")}}">ORM SEQUELIZE</a>
+                  <a href="{{url('orm')}}">ORM SEQUELIZE</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" sql")}}">QUERY SQL</a>
+                  <a href="{{url('sql')}}">QUERY SQL</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" sqlJoin")}}">QUERY SQL JOIN</a>
+                  <a href="{{url('sqlJoin')}}">QUERY SQL JOIN</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" syscall")}}">SYSTEM CALL</a>
+                  <a href="{{url('syscall')}}">SYSTEM CALL</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" httpRequest")}}">HTTP REQUEST</a>
+                  <a href="{{url('httpRequest')}}">HTTP REQUEST</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" websocket")}}">WEBSOCKET</a>
+                  <a href="{{url('websocket')}}">WEBSOCKET</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" json")}}">RENDER JSON</a>
+                  <a href="{{url('json')}}">RENDER JSON</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a href="{{url(" redirect")}}">REDIRECT</a>
+                  <a href="{{url('redirect')}}">REDIRECT</a>
                 </li>
               </ul>
             </li>
@@ -84,7 +84,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="{{url(" indexReal")}}">DEMO REALTIME</a>
+                  <a href="{{url('indexReal')}}">DEMO REALTIME</a>
                 </li>
                 {% if user.username %}{% endif %}
               </ul>
@@ -95,7 +95,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="{{url(" webAudioApi")}}">WEB AUDIO API MIXER</a>
+                    <a href="{{url(' webAudioApi')}}">WEB AUDIO API MIXER</a>
                   </li>
                   <li role="separator" class="divider"></li>
                 </ul>
@@ -105,7 +105,7 @@
               {{ render( controller("demoBundle:demo:doc" )) }}
             {% endblock %}
             <li class="dropdown">
-              <a href="{{url(" monitoring-index")}}" role="button" aria-haspopup="true" aria-expanded="false">MONITORING</a>
+              <a href="{{url('monitoring-index')}}" role="button" aria-haspopup="true" aria-expanded="false">MONITORING</a>
             </li>
           </ul>
 
@@ -118,7 +118,7 @@
               {% endif %}
             </li>
             <li class="dropdown">
-              {% if user.username %}
+              {% if user.username and user.username != "anonymous" %}
                 {% if user.displayName %}
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.displayName}}
                     <span class="caret"></span>
@@ -167,7 +167,7 @@
                 </a>
                 <div class="dropdown-menu ">
                   <div class="box-sm">
-                    <div class=" " style="padding: 10px 15px;">
+                    <div class=" " style=" padding:="padding:" 10px="10px" 15px;"=" 15px;""="15px;" "">
                       AUTHENTICATIONS TYPES
                     </div>
                     <div class="divider"></div>
