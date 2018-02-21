@@ -7,7 +7,6 @@ security:
         provider:              nodefony
         form_login:
           default_target_path: /finder
-          check_path:          /basic
         passport-basic:
           realm:               "nodefony"
         logout:                /logout
@@ -19,7 +18,6 @@ security:
         provider:              nodefony
         form_login:
           default_target_path: /finder
-          check_path:          /digest
         passport-digest:
           realm:               "nodefony"
         logout:                /logout
@@ -31,10 +29,9 @@ security:
         provider:              nodefony
         form_login:
           login_path:          /login/passport-local
-          default_target_path: /
-          check_path:          /local
+          default_target_path: /home
         passport-local:
-          usernameField:       'email'
+          usernameField:       'username'
           passwordField:       'passwd'
         logout:                /logout
         context:               ~
