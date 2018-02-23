@@ -28,8 +28,9 @@ security:
         pattern:               ^/local
         provider:              nodefony
         form_login:
-          login_path:          /login/passport-local
+          login_path:          /demo/login/passport-local
           default_target_path: /home
+          alwaysUseDefaultTarget : true
         passport-local:
           usernameField:       'username'
           passwordField:       'passwd'

@@ -1,7 +1,7 @@
 module.exports = {
   // ###  LOGIN LOGOUT AND CREATE ACCOUNT   ###
   loginAll: {
-    pattern: "/login/{type}",
+    pattern: "/demo/login/{type}",
     defaults: {
       controller: "demoBundle:login:login"
     }
