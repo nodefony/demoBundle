@@ -7,9 +7,9 @@ require("../plugins/gritter/js/jquery.gritter.js");
 
 //css
 require('../clean/css/style.css');
-require( '../plugins/gritter/css/jquery.gritter.css');
+require('../plugins/gritter/css/jquery.gritter.css');
 
-module.exports = function (){
-    // expose stage in gobal window object
-	window["stage"] = stage ;
+module.exports = function () {
+  // expose stage in gobal window object
+  window.stage = stage;
 }();
