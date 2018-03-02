@@ -30,7 +30,7 @@ security:
         form_login:
           login_path:          /demo/login/passport-local
           default_target_path: /home
-          alwaysUseDefaultTarget : true
+          always_use_default_target_path : true
         passport-local:
           usernameField:       'username'
           passwordField:       'passwd'
