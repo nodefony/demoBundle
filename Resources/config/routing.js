@@ -21,5 +21,11 @@ module.exports = nodefony.extend(orm, login, upload, firewall, finder, websocket
     defaults: {
       controller: "demoBundle:demo:json"
     }
+  },
+  "json-async": {
+    pattern: "/jsonAsync",
+    defaults: {
+      controller: "demoBundle:demo:jsonAsync"
+    }
   }
 });

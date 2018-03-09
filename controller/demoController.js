@@ -84,6 +84,15 @@ module.exports = class demoController extends nodefony.controller {
     });
   }
 
+  jsonAsyncAction() {
+    setTimeout(() => {
+      return this.renderJson({
+        foo: "bar",
+        bar: "foo"
+      });
+    });
+  }
+
   /**
    *
    *	@see redirect with variables
@@ -123,10 +132,9 @@ module.exports = class demoController extends nodefony.controller {
     } catch (e) {
       audio = null;
     }
-    return this.render('demoBundle:layouts:navBar.html.twig', {
+    return this.renderSync('demoBundle:layouts:navBar.html.twig', {
       user: this.context.user,
       audio: audio,
-      webrtc: this.kernel.getBundles("webrtc"),
       angular: this.kernel.getBundles("angular"),
       react: this.kernel.getBundles("react"),
       login: login
@@ -143,7 +151,7 @@ module.exports = class demoController extends nodefony.controller {
     if (docBundle) {
       return this.forward("documentationBundle:default:navDoc");
     }
-    return this.render('demoBundle:demo:navDoc.html.twig');
+    return this.renderSync('demoBundle:demo:navDoc.html.twig');
   }
 
   /**
@@ -406,7 +414,7 @@ module.exports = class demoController extends nodefony.controller {
         bodyRaw += chunk;
       });
       res.on('end', () => {
-        this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
+        this.render("demoBundle:demo:httpRequest.html.twig", {
           host: host,
           type: type,
           bodyRaw: bodyRaw,
@@ -415,7 +423,7 @@ module.exports = class demoController extends nodefony.controller {
     });
     req.on('error', (e) => {
       this.logger('Problem with request: ' + e.message, "ERROR");
-      this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
+      this.render("demoBundle:demo:httpRequest.html.twig", {
         host: host,
         type: type,
         bodyRaw: e,

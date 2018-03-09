@@ -24,7 +24,7 @@ module.exports = class finderController extends nodefony.controller {
       };
     }
     try {
-      this.search(path);
+      return this.search(path);
     } catch (e) {
       throw e;
     }
@@ -54,53 +54,56 @@ module.exports = class finderController extends nodefony.controller {
       switch (file.type) {
       case "symbolicLink":
       case "Directory":
-        new nodefony.finder({
-          path: path,
-          json: true,
-          followSymLink: true,
-          //seeHidden:true,
-          recurse: false,
-          onDirectory: function (File /*, finder*/ ) {
-            File.link = file.type;
-          },
-          onFile: function (File /*, finder*/ ) {
-            switch (File.mimeType) {
-            case "text/plain":
-              File.link = "Link";
-              break;
-            default:
-              File.link = "Download";
+        return new Promise((resolve, reject) => {
+          new nodefony.finder({
+            path: path,
+            json: true,
+            followSymLink: true,
+            //seeHidden:true,
+            recurse: false,
+            onDirectory: function (File /*, finder*/ ) {
+              File.link = file.type;
+            },
+            onFile: function (File /*, finder*/ ) {
+              switch (File.mimeType) {
+              case "text/plain":
+                File.link = "Link";
+                break;
+              default:
+                File.link = "Download";
+              }
+            },
+            onFinish: (error, files) => {
+              if (error) {
+                return reject(error);
+              }
+              return resolve(this.render('demoBundle:finder:index.html.twig', {
+                title: "Finder",
+                files: files.json
+              }));
             }
-          },
-          onFinish: (error, files) => {
-            this.renderAsync('demoBundle:finder:index.html.twig', {
-              title: "Finder",
-              files: files.json
-            });
-          }
+          });
+
         });
-        break;
       case "File":
         switch (file.mimeType) {
         case "text/plain":
-          this.renderAsync('demoBundle:finder:files.html.twig', {
+          return this.render('demoBundle:finder:files.html.twig', {
             content: file.content(file.encoding),
             mime: file.mimeType,
             encoding: file.encoding
           });
-          break;
         case "text/x-markdown":
           let res = this.htmlMdParser(file.content(file.encoding), {
             linkify: true,
             typographer: true
           });
-          this.renderAsync('demoBundle:finder:files.html.twig', {
+          return this.render('demoBundle:finder:files.html.twig', {
             title: file.name,
             content: res,
             mime: file.mimeType,
             encoding: file.encoding
           });
-          break;
         default:
           this.encode(file);
         }
