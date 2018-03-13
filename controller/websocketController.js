@@ -35,8 +35,8 @@ module.exports = class websocketController extends nodefony.controller {
         let id = setInterval(() => {
           let mess = "I am a  message " + i + "\n";
           this.logger("SEND TO CLIENT :" + mess, "INFO");
-          //this.context.send(mess);
-          this.renderResponse(mess);
+          this.context.send(mess);
+          //this.renderResponse(mess);
           i++;
         }, 1000);
         setTimeout(() => {

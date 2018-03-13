@@ -166,7 +166,7 @@ module.exports = class demoController extends nodefony.controller {
     let path = this.generateUrl("home");
     let year = new Date().getFullYear();
     let langs = translateService.getLangs();
-    let locale = translateService.getLocale();
+    let locale = this.getLocale();
     let langOptions = "";
     for (let ele in langs) {
       if (locale === langs[ele].value) {
