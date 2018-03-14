@@ -251,7 +251,7 @@ module.exports = class demoController extends nodefony.controller {
 					<hostname>' + hostname + '</hostname>\
 				</kernel>\
 				</nodefony></xml>';
-      return this.renderResponse(content, 200, {
+      return this.renderResponseAsync(content, 200, {
         "Content-Type": "Application/xml"
       });
     });
@@ -414,7 +414,7 @@ module.exports = class demoController extends nodefony.controller {
         bodyRaw += chunk;
       });
       res.on('end', () => {
-        this.render("demoBundle:demo:httpRequest.html.twig", {
+        this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
           host: host,
           type: type,
           bodyRaw: bodyRaw,
@@ -423,7 +423,7 @@ module.exports = class demoController extends nodefony.controller {
     });
     req.on('error', (e) => {
       this.logger('Problem with request: ' + e.message, "ERROR");
-      this.render("demoBundle:demo:httpRequest.html.twig", {
+      this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
         host: host,
         type: type,
         bodyRaw: e,
