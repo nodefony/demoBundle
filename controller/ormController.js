@@ -3,7 +3,7 @@ module.exports = class ormController extends nodefony.controller {
   constructor(container, context) {
     super(container, context);
     this.orm = this.getORM();
-    this.nodefonyDb = this.orm.getConnection("nodefony");
+    this.nodefonyDb = this.getConnection("nodefony");
   }
 
   /**
