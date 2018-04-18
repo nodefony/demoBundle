@@ -6,37 +6,30 @@
   {{ parent() }}
 
   <!-- WEBPACK BUNDLE -->
-  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/assets/css/demo.css"/>
-
+  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/assets/css/demo.css" />
 {% endblock %}
 
 {% block javascripts %}
-
   {{ parent() }}
-
   <!-- WEBPACK BUNDLE -->
   <script src="{{CDN('javascript')}}/demoBundle/assets/js/demo.js"></script>
-
-  <script>
-    demo();
-  </script>
+<script>
+  demo();
+</script>
 
 {% endblock %}
 
 {% block body %}
+<!-- Preloader -->
+<div id="preloader">
+  <div id="status"></div>
+</div>
+<div class="hide" id="error">{{ getFlashBag('error') }}</div>
+<div class="hide" id="adduser">{{ getFlashBag('adduser') }}</div>
 
-  <!-- Preloader -->
+<!-- Home start -->
 
-  <div id="preloader">
-    <div id="status"></div>
-  </div>
-
-  <div class="hide" id="error">{{ getFlashBag('error') }}</div>
-  <div class="hide" id="adduser">{{ getFlashBag('adduser') }}</div>
-
-  <!-- Home start -->
-
-  <span itemscope itemtype="http://schema.org/SoftwareApplication">
+<span itemscope itemtype="http://schema.org/SoftwareApplication">
     <section id="home" class="pfblock-image screen-height">
       <div class="home-overlay"></div>
 
@@ -52,70 +45,61 @@
                   NODEFONY
                 </strong>
                 <span style="color:white;font-size:30px">{{version}}</span>
-              </a>
-            </h1>
-            <h3 class="success" style="font-size:20px; paddind-top:20px">
+</a>
+</h1>
+<h3 class="success" style="font-size:20px; paddind-top:20px">
               <strong class="text-primary"></strong>
               {{ "framework"|trans }}
             </h3>
-            <div class="start">
-              {{ "welcome"|trans() }}
-              {{user.username }}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-6 col-sm-offset-3" style="margin-top:30px">
-
-              <div class="pfblock-subtitle text-primary" style="clear:both;">
-                <a href="https://nodejs.org"><img alt="node.js" width="130px" height="80px" src="/frameworkBundle/images/nodejs/nodejs-new-pantone-white.png"></a>
-                <a href="https://github.com/nodefony/nodefony" style="padding-left:30px"><img alt="node.js" width="32px" height="32px" src="/frameworkBundle/images/github/GitHub-Mark-Light-32px.png"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <a href="#system">
-        <div class="scroll-down">
-          <span>
+<div class="start">
+  {{ "welcome"|trans() }} {{user.username }}
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3" style="margin-top:30px">
+    <div class="pfblock-subtitle text-primary" style="clear:both;">
+      <a href="https://nodejs.org"><img alt="node.js" width="130px" height="80px" src="/frameworkBundle/images/nodejs/nodejs-new-pantone-white.png"></a>
+      <a href="https://github.com/nodefony/nodefony" style="padding-left:30px"><img alt="node.js" width="32px" height="32px" src="/frameworkBundle/images/github/GitHub-Mark-Light-32px.png"></a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<a href="#system">
+  <div class="scroll-down">
+    <span>
             <i class="fa fa-angle-down fa-2x"></i>
           </span>
-        </div>
-      </a>
-    </section>
+  </div>
+</a>
+</section>
 
-    {{ parent() }}
+{{ parent() }}
 
-    <section id="system" class=" pfblock-gray screen-height">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-sm-6 col-sm-offset-3" style="margin-top:60px">
-
-            <div class="pfblock-header wow fadeInUp">
-              <h2 class="pfblock-title text-primary">
+<section id="system" class=" pfblock-gray screen-height">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3" style="margin-top:60px">
+        <div class="pfblock-header wow fadeInUp">
+          <h2 class="pfblock-title text-primary">
                 WEB APPLICATION</h2>
-              <div class="pfblock-line"></div>
-              <div class="pfblock-subtitle text-primary"></div>
-            </div>
-
-          </div>
-
+          <div class="pfblock-line"></div>
+          <div class="pfblock-subtitle text-primary"></div>
         </div>
-
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="iconbox wow slideInRight">
-              <div class="iconbox-icon">
-                <img src="/demoBundle/images/web-server-icon.png" style="width:60px;height:60px"></img>
-              </div>
-              <div class="iconbox-text">
-                <h3 class="iconbox-title">SERVEURS</h3>
-                <div class="iconbox-desc">
-                  Http Https
-                </br>
-                Websoket Secure
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInRight">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/web-server-icon.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">SERVEURS</h3>
+            <div class="iconbox-desc">
+              Http Https
+              </br>
+              Websoket Secure
               </br>
               Statics Files
             </div>
@@ -131,134 +115,121 @@
             <h3 class="iconbox-title">FRAMEWORK SERVICE</h3>
             <div class="iconbox-desc">
               MVC Design</br>
-            Dynamic Routing</br>
-          Translations, Assetics
-        </br>
+              Dynamic Routing</br>
+              Translations, Assetics
+              </br>
 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInRight">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/sequelize/sequelize.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">ORM SERVICE</h3>
+            <div class="iconbox-desc">
+              <a href="http://docs.sequelizejs.com">Sequelize</a>
+              <a href="http://mongoosejs.com/">Mongoose</a>
+              </br>
+              MYSQL SQLITE MONGODB</br>
+              Sessions, Users
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInRight">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/monitoring.jpg" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">NONITORING APPICATION</h3>
+            <div class="iconbox-desc">
+              Monitoring Websoket</br>
+              Monitoring Http</br>
+              Monitoring Sessions</br>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="col-sm-3">
-  <div class="iconbox wow slideInRight">
-    <div class="iconbox-icon">
-      <img src="/demoBundle/images/sequelize/sequelize.png" style="width:60px;height:60px"></img>
+    <!-- .row -->
+    <div class="row">
+      <div class="col-sm-3">
+
+        <div class="iconbox wow slideInLeft">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/fanout_icon.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">REALTIME APPLICATION</h3>
+            <div class="iconbox-desc">
+              API Realtime
+              </br>
+              Services Subscription
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInLeft">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/passportjs.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">AUTHENTICATION MANAGER</h3>
+            <div class="iconbox-desc">
+              Users Authentication
+              </br>
+              <a href="http://passportjs.org">Passport Strategies</a> Integration
+              </br>
+              Digest Basic oAuth Local
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInRight">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/http.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">SESSIONS MANAGER</h3>
+            <div class="iconbox-desc">
+              Session Storage
+              </br>
+              Memcahed , File System , ORM
+              <br> Session Context Secure
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-3">
+        <div class="iconbox wow slideInRight">
+          <div class="iconbox-icon">
+            <img src="/demoBundle/images/firewall.png" style="width:60px;height:60px"></img>
+          </div>
+          <div class="iconbox-text">
+            <h3 class="iconbox-title">SECURITY</h3>
+            <div class="iconbox-desc">
+              Firewall in Application Level
+              </br>
+              Cors Manager
+              </br>
+              Sessions Secure
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="iconbox-text">
-      <h3 class="iconbox-title">ORM SERVICE</h3>
-      <div class="iconbox-desc">
-        <a href="http://docs.sequelizejs.com">Sequelize</a>
-        <a href="http://mongoosejs.com/">Mongoose</a>
-      </br>
-      MYSQL SQLITE MONGODB</br>
-    Sessions, Users
+    <!-- .row -->
   </div>
-</div>
-</div>
-</div>
-<div class="col-sm-3">
-<div class="iconbox wow slideInRight">
-<div class="iconbox-icon">
-  <img src="/demoBundle/images/monitoring.jpg" style="width:60px;height:60px"></img>
-</div>
-<div class="iconbox-text">
-  <h3 class="iconbox-title">NONITORING APPICATION</h3>
-  <div class="iconbox-desc">
-    Monitoring Websoket</br>
-  Monitoring Http</br>
-Monitoring Sessions</br>
-
-</div>
-</div>
-</div>
-</div>
-
-</div>
-<!-- .row -->
-<div class="row">
-<div class="col-sm-3">
-
-<div class="iconbox wow slideInLeft">
-<div class="iconbox-icon">
-<img src="/demoBundle/images/fanout_icon.png" style="width:60px;height:60px"></img>
-</div>
-<div class="iconbox-text">
-<h3 class="iconbox-title">REALTIME APPLICATION</h3>
-<div class="iconbox-desc">
-API Realtime
-</br>
-Services Subscription
-</div>
-</div>
-</div>
-</div>
-
-<div class="col-sm-3">
-
-<div class="iconbox wow slideInLeft">
-<div class="iconbox-icon">
-<img src="/demoBundle/images/passportjs.png" style="width:60px;height:60px"></img>
-</div>
-<div class="iconbox-text">
-<h3 class="iconbox-title">AUTHENTICATION MANAGER</h3>
-<div class="iconbox-desc">
-Users Authentication
-</br>
-<a href="http://passportjs.org">Passport Strategies</a>
-Integration
-</br>
-Digest Basic oAuth Local
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="col-sm-3">
-
-<div class="iconbox wow slideInRight">
-<div class="iconbox-icon">
-<img src="/demoBundle/images/http.png" style="width:60px;height:60px"></img>
-</div>
-<div class="iconbox-text">
-<h3 class="iconbox-title">SESSIONS MANAGER</h3>
-<div class="iconbox-desc">
-Session Storage
-</br>
-Memcahed , File System , ORM
-<br>
-Session Context Secure
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="col-sm-3">
-
-<div class="iconbox wow slideInRight">
-<div class="iconbox-icon">
-<img src="/demoBundle/images/firewall.png" style="width:60px;height:60px"></img>
-</div>
-<div class="iconbox-text">
-<h3 class="iconbox-title">SECURITY</h3>
-<div class="iconbox-desc">
-Firewall in Application Level
-</br>
-Cors Manager
-</br>
-Sessions Secure
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-<!-- .row -->
-
-</div>
-<!-- .container -->
+  <!-- .container -->
 
 </section>
 <span>

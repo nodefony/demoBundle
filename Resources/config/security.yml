@@ -29,7 +29,7 @@ security:
         provider:              nodefony
         form_login:
           login_path:          /demo/login/passport-local
-          default_target_path: /home
+          default_target_path: /demo
           always_use_default_target_path : true
         passport-local:
           usernameField:       'username'

@@ -15,23 +15,12 @@ module.exports = class loginController extends nodefony.controller {
    *
    */
   loginAction(type) {
-    let log = null;
+    let log = {};
     if (this.context.session) {
-      log = this.context.session.getFlashBag("session");
-      if (log) {
-        log.login = true;
-      } else {
-        log = {
-          login: true
-        };
-      }
       let error = this.context.session.getFlashBag("error");
       if (error) {
         log.error = error;
       }
-    }
-    if (!log) {
-      log = {};
     }
     switch (type) {
     case "passport-local":
@@ -43,14 +32,7 @@ module.exports = class loginController extends nodefony.controller {
   }
 
   subscribeAction() {
-    let log = this.context.session.getFlashBag("session");
-    if (log) {
-      log.login = true;
-    } else {
-      log = {
-        login: true
-      };
-    }
+    let log = {};
     let error = this.context.session.getFlashBag("error");
     if (error) {
       log.error = error;
@@ -89,9 +71,11 @@ module.exports = class loginController extends nodefony.controller {
       })
       .then((results) => {
         users = results;
-        this.getSession().invalidate();
+        return this.getSession().invalidate();
+      })
+      .then(() => {
         this.setFlashBag("adduser", " Add user  : " + query.post.usernameCreate + " OK");
-        return this.redirect(this.generateUrl("home"));
+        return this.redirect(this.generateUrl("demo"));
       })
       .catch((error) => {
         if (error.errors) {

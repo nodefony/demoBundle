@@ -17,7 +17,7 @@ module.exports = class demoController extends nodefony.controller {
 
   /**
    *
-   *    @Route ("/home",
+   *    @Route ("/demo",
    *      name="demo")
    */
   indexAction() {
