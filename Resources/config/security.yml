@@ -42,7 +42,7 @@ security:
     #  Management credentials : https://console.developers.google.com/apis
     #google_area:
     #    pattern:              ^/auth/google
-    #    provider:             nodefony
+    #    provider:             false
     #    form_login:
     #      default_target_path: /
     #    passport-google-oauth20:
@@ -67,7 +67,7 @@ security:
     # passport-github2  DEMO SECURITY AREA
     #github_area:
     #    pattern:              ^/auth/github
-    #    provider:             nodefony
+    #    provider:             false
     #    form_login:
     #      default_target_path: /
     #    passport-github2:
@@ -94,10 +94,10 @@ security:
     #
     #ldap_area:
     #         pattern:         ^/
-    #         provider:        nodefony
+    #         provider:        false
     #         form_login:
     #           login_path:    /login/ldap
-    #           default_target_path: /demo
+    #           default_target_path: /
     #         passport-ldapauth:
     #           server:
     #             url:         'ldap://ldad-server.com'
@@ -112,4 +112,4 @@ security:
     #             email:       "profile.mail"
     #             displayName: "profile.cn"
     #         logout:          /logout
-    #         context:         documentation
+    #         context:         ldap
