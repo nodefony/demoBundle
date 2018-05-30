@@ -11,7 +11,7 @@ module.exports = class finderController extends nodefony.controller {
     let query = this.getParameters("query");
     let path = null;
     if (!query.get.path) {
-      path = this.kernel.rootDir + "/src/bundles/demoBundle/Resources/images";
+      path = this.bundle.path + "/Resources/images";
     } else {
       path = query.get.path;
     }
@@ -19,9 +19,7 @@ module.exports = class finderController extends nodefony.controller {
     let securePath = this.kernel.getBundles("demo").path;
     let reg = new RegExp("^" + securePath);
     if (!reg.test(path)) {
-      throw {
-        status: 401
-      };
+      return this.createUnauthorizedException("Unauthorized Path : " + path);
     }
     try {
       return this.search(path);
