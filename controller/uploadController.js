@@ -10,7 +10,7 @@ module.exports = class uploadController extends nodefony.controller {
 
   uploadAction() {
     let files = this.getParameters("query.files");
-    let target = path.resolve(this.kernel.rootDir + "/" + "src", "bundles", "demoBundle", "Resources", "upload");
+    let target = path.resolve(this.bundle.path, "Resources", "upload");
     for (let i = 0; i < files.length; i++) {
       files[i].move(target);
     }

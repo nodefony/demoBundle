@@ -1,7 +1,7 @@
 {
-  "name": "@nodefony/demoBundle",
+  "name": "@nodefony/demo-bundle",
   "version": "4.0.0",
-  "description": "Demo Nodefony",
+  "description": "Nodefony Framework Bundle Demo",
   "main": "demoBundle.js",
   "keywords": [
     "nodefony",
