@@ -8,8 +8,8 @@
 
   {{ parent() }}
 
-  <link href="{{CDN('stylesheet')}}/demoBundle/assets/css/layout.css" rel="stylesheet"/>
-  <link href="{{CDN('stylesheet')}}/frameworkBundle/vendors/dataTable/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+  <link href="{{CDN('stylesheet')}}/demo-bundle/assets/css/layout.css" rel="stylesheet"/>
+  <link href="{{CDN('stylesheet')}}/framework-bundle/vendors/dataTable/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 
 {% endblock %}
 
@@ -17,9 +17,9 @@
 
   {{ parent() }}
 
-  <script type="text/javascript" src="{{CDN('javascript')}}/demoBundle/assets/js/layout.js"></script>
-  <script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="{{CDN('javascript')}}/frameworkBundle/vendors/dataTable/js/dataTables.bootstrap.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/demo-bundle/assets/js/layout.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/framework-bundle/vendors/dataTable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="{{CDN('javascript')}}/framework-bundle/vendors/dataTable/js/dataTables.bootstrap.js"></script>
 
   <script>
     /* ---------------------------------------------- /*
@@ -33,12 +33,12 @@
 
 {% block body %}
   <header class="header">
-    {{ render( controller("demoBundle:demo:nav", login ))}}
+    {{ render( controller("demo-bundle:demo:nav", login ))}}
   </header>
 {% endblock %}
 
 {% block footer %}
   <footer >
-    {{ render( controller("demoBundle:demo:footer" )) }}
+    {{ render( controller("demo-bundle:demo:footer" )) }}
   </footer>
 {% endblock %}

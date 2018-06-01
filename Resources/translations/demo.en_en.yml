@@ -1,10 +1,10 @@
 ##
-##        nodefony TRANSLATION YAML FILE 
+##        nodefony TRANSLATION YAML FILE
 ##
 ##
 ## This file is YAML  FILE
 ## ---
-## YAML: YAML Ain't Markup Language
+## YAML:    YAML Ain't Markup Language
 ##
 ## What It Is: YAML is a human friendly data serialization
 ##   standard for all programming languages.
@@ -25,5 +25,5 @@
 
 
 
-welcome:                        Welcome
-framework:                      FRAMEWORK REALTIME <a style="color:#999;font-size:25px" href="http://symfony.com/"><img alt="node.js"  src="/frameworkBundle/images/symfony/symfony_white_02.png" width="125px" height="31px"></a> LIKE
+welcome:    Welcome
+framework:  FRAMEWORK REALTIME <a style="color:#999;font-size:25px" href="http://symfony.com/"><img alt="symfony"  src="/framework-bundle/images/symfony/symfony_white_02.png" width="125px" height="31px"></a> LIKE

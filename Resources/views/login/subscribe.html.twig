@@ -10,7 +10,7 @@
 
   {{ parent() }}
   <!-- WEBPACK BUNDLE -->
-  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/assets/css/demo.css"/>
+  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demo-bundle/assets/css/demo.css"/>
 
   <style>
     .form-signin {
@@ -90,7 +90,7 @@
 
   {{ parent() }}
   <!-- WEBPACK BUNDLE -->
-  <script src="{{CDN('javascript')}}/demoBundle/assets/js/demo.js"></script>
+  <script src="{{CDN('javascript')}}/demo-bundle/assets/js/demo.js"></script>
 
   <script>
     demo();
@@ -124,7 +124,7 @@
 
           <div class="account-wall">
             <div id="my-tab-content" class="tab-content">
-              <!--div class="tab-pane active" id="homelogin"> <img class="profile-img" src="/demoBundle/images/user.png" alt=""/> <form id="login" class="form-signin" action="{{path("demoSecure")}}" method="POST"> <input id="email" type="text" class="form-control"
+              <!--div class="tab-pane active" id="homelogin"> <img class="profile-img" src="/demo-bundle/images/user.png" alt=""/> <form id="login" class="form-signin" action="{{path("demoSecure")}}" method="POST"> <input id="email" type="text" class="form-control"
               placeholder="{{"user"|trans}}" required autofocus> <input id="password" type="password" class="form-control" placeholder="{{"pwd"|trans}}" required> <input id="valid" type="submit" class="btn btn-lg btn-default btn-block" value={{"validation"|trans}}
               /> </form> <div class="checkbox text-center"> <p> <strong>{{"user"|trans}} :</strong> admin <strong> {{"pwd"|trans}} </strong>: admin </p> <p> <strong>{{"user"|trans}} :</strong> 1000 <strong> {{"pwd"|trans}} </strong>: 1234 </p> </div> <div
               id="tabs" data-tabs="tabs"> <p class="text-center"><a href="#register" data-toggle="tab">{{"need"|trans}}</a></p> </div> </div-->

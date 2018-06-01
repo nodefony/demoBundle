@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demoBundle/css/login/style.css"/>
+  <link rel="stylesheet" href="{{CDN('stylesheet')}}/demo-bundle/css/login/style.css"/>
 {% endblock %}
 
 {% block body %}
@@ -22,7 +22,7 @@
   <!-- end #page-loader -->
 
   <div class="login-cover">
-    <div class="login-cover-image"><img src="/demoBundle/images/login-bg/lisa-ricciotti-photographe-chateau-if.jpg" data-id="login-cover-image" alt=""/></div>
+    <div class="login-cover-image"><img src="/demo-bundle/images/login-bg/lisa-ricciotti-photographe-chateau-if.jpg" data-id="login-cover-image" alt=""/></div>
     <div class="login-cover-bg"></div>
   </div>
   <!-- begin #page-container -->
@@ -35,13 +35,13 @@
           {% if type == "passport-local" %}
             <span>
               <a href="http://passportjs.org/">
-                <img width="45px" height="41px" src="/demoBundle/images/passportjs.png" alt="passportjs"></img>
+                <img width="45px" height="41px" src="/demo-bundle/images/passportjs.png" alt="passportjs"></img>
               </a>
             </span>
             {{type}}
           {% else %}
             <span class="">
-              <img width="50px" height="46px" src="/frameworkBundle/images/nodefony-logo.png"></img>
+              <img width="50px" height="46px" src="/framework-bundle/images/nodefony-logo.png"></img>
             </span>
             {{type}}
           {% endif %}
@@ -81,19 +81,19 @@
 
       <ul class="login-bg-list" style="bottom:60px">
         <li >
-          <a href="#" data-click="change-bg"><img src="/demoBundle/images/login-bg/mucem-marseille-musee-ricciotti1.jpg" alt=""/></a>
+          <a href="#" data-click="change-bg"><img src="/demo-bundle/images/login-bg/mucem-marseille-musee-ricciotti1.jpg" alt=""/></a>
         </li>
         <li >
-          <a href="#" data-click="change-bg"><img src="/demoBundle/images/login-bg/stjean.jpg" alt=""/></a>
+          <a href="#" data-click="change-bg"><img src="/demo-bundle/images/login-bg/stjean.jpg" alt=""/></a>
         </li>
         <li class="active">
-          <a href="#" data-click="change-bg"><img src="/demoBundle/images/login-bg/lisa-ricciotti-photographe-chateau-if.jpg" alt=""/></a>
+          <a href="#" data-click="change-bg"><img src="/demo-bundle/images/login-bg/lisa-ricciotti-photographe-chateau-if.jpg" alt=""/></a>
         </li>
         <li>
-          <a href="#" data-click="change-bg"><img src="/demoBundle/images/login-bg/Notre_Dame_de_la_Garde.jpg" alt=""/></a>
+          <a href="#" data-click="change-bg"><img src="/demo-bundle/images/login-bg/Notre_Dame_de_la_Garde.jpg" alt=""/></a>
         </li>
         <li>
-          <a href="#" data-click="change-bg"><img src="/demoBundle/images/login-bg/farillon.jpeg" alt=""/></a>
+          <a href="#" data-click="change-bg"><img src="/demo-bundle/images/login-bg/farillon.jpeg" alt=""/></a>
         </li>
       </ul>
 
@@ -110,6 +110,6 @@
     </script>
     <!-- ================== BEGIN BASE JS ================== -->
 
-    <script type="text/javascript" src="{{CDN('javascript')}}/demoBundle/assets/js/login.js"></script>
+    <script type="text/javascript" src="{{CDN('javascript')}}/demo-bundle/assets/js/login.js"></script>
 
   {% endblock %}
