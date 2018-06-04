@@ -36,7 +36,7 @@ watch:           false
 #
 #  OVERRIDE BUNDLE REALTIME
 #
-realTimeBundle:
+realtime-bundle:
   system:
     reconnect:
       handshake: true

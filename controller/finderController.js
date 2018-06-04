@@ -75,7 +75,7 @@ module.exports = class finderController extends nodefony.controller {
               if (error) {
                 return reject(error);
               }
-              return resolve(this.render('demoBundle:finder:index.html.twig', {
+              return resolve(this.render('demo-bundle:finder:index.html.twig', {
                 title: "Finder",
                 files: files.json
               }));
@@ -86,7 +86,7 @@ module.exports = class finderController extends nodefony.controller {
       case "File":
         switch (file.mimeType) {
         case "text/plain":
-          return this.render('demoBundle:finder:files.html.twig', {
+          return this.render('demo-bundle:finder:files.html.twig', {
             content: file.content(file.encoding),
             mime: file.mimeType,
             encoding: file.encoding
@@ -96,7 +96,7 @@ module.exports = class finderController extends nodefony.controller {
             linkify: true,
             typographer: true
           });
-          return this.render('demoBundle:finder:files.html.twig', {
+          return this.render('demo-bundle:finder:files.html.twig', {
             title: file.name,
             content: res,
             mime: file.mimeType,

@@ -15,7 +15,7 @@ module.exports = class ormController extends nodefony.controller {
   querySqlAction() {
     return this.nodefonyDb.query('SELECT * FROM users')
       .then((result) => {
-        return this.render('demoBundle:orm:orm.html.twig', {
+        return this.render('demo-bundle:orm:orm.html.twig', {
           users: result[0],
         });
       });
@@ -35,7 +35,7 @@ module.exports = class ormController extends nodefony.controller {
         for (let i = 0; i < joins.length; i++) {
           joins[i].metaBag = JSON.parse(joins[i].metaBag);
         }
-        return this.render('demoBundle:orm:orm.html.twig', {
+        return this.render('demo-bundle:orm:orm.html.twig', {
           joins: joins,
         });
       });
@@ -54,7 +54,7 @@ module.exports = class ormController extends nodefony.controller {
     /*return sessionEntity.findAll()
     .then( (results) => {
     	//sessions = results;
-    	return this.render('demoBundle:orm:orm.html.twig', {
+    	return this.render('demo-bundle:orm:orm.html.twig', {
     		sessions:results,
     	});
     })
@@ -66,7 +66,7 @@ module.exports = class ormController extends nodefony.controller {
     // MULTIPLE ORM CALL ASYNC RENDER WITH PROMISE
     return Promise.all([sessionEntity.findAll(), userEntity.findAll()])
       .then((result) => {
-        return this.render('demoBundle:orm:orm.html.twig', {
+        return this.render('demo-bundle:orm:orm.html.twig', {
           sessions: result[0],
           users: result[1],
         });

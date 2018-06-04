@@ -20,6 +20,6 @@
      *
      */
     mixAction() {
-      return this.render("demoBundle:webAudio:mix2.html.twig");
+      return this.render("demo-bundle:webAudio:mix2.html.twig");
     }
   };

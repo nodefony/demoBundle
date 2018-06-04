@@ -20,7 +20,7 @@ module.exports = class websocketController extends nodefony.controller {
         server = this.get("httpsServer");
         break;
       }*/
-      return this.render('demoBundle:websocket:websocket.html.twig', {
+      return this.render('demo-bundle:websocket:websocket.html.twig', {
         name: "websoket",
         host: this.request.host
       });

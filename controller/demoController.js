@@ -21,7 +21,7 @@ module.exports = class demoController extends nodefony.controller {
    *      name="demo")
    */
   indexAction() {
-    // return  OBJECT by default view is : demoBundle:demo:index.html.twig
+    // return  OBJECT by default view is : demo-bundle:demo:index.html.twig
     return {
       title: "nodefony",
       user: this.context.user,
@@ -29,7 +29,7 @@ module.exports = class demoController extends nodefony.controller {
       nodefony: this.kernel.settings.name + " " + this.kernel.settings.system.version
     };
     // WITH RENDER
-    /*return this.render("demoBundle:demo:index.html.twig",{
+    /*return this.render("demo-bundle:demo:index.html.twig",{
     	title:"nodefony",
     	user: this.context.user,
     	nodefony:this.kernel.settings.name + " " + this.kernel.settings.system.version
@@ -41,7 +41,7 @@ module.exports = class demoController extends nodefony.controller {
    *
    */
   renderviewAction() {
-    let content = this.renderView('demoBundle:demo:documentation.html.twig', {
+    let content = this.renderView('demo-bundle:demo:documentation.html.twig', {
       name: "render"
     });
     return this.renderResponse(content);
@@ -115,7 +115,7 @@ module.exports = class demoController extends nodefony.controller {
       linkify: true,
       typographer: true
     });
-    return this.render('demoBundle:demo:documentation.html.twig', {
+    return this.render('demo-bundle:demo:documentation.html.twig', {
       html: res
     });
   }
@@ -132,7 +132,7 @@ module.exports = class demoController extends nodefony.controller {
     } catch (e) {
       audio = null;
     }
-    return this.renderSync('demoBundle:layouts:navBar.html.twig', {
+    return this.renderSync('demo-bundle:layouts:navBar.html.twig', {
       user: this.context.user,
       audio: audio,
       angular: this.kernel.getBundles("angular"),
@@ -149,9 +149,9 @@ module.exports = class demoController extends nodefony.controller {
   docAction() {
     let docBundle = this.kernel.getBundles("documentation");
     if (docBundle) {
-      return this.forward("documentationBundle:default:navDoc");
+      return this.forward("documentation-bundle:default:navDoc");
     }
-    return this.renderSync('demoBundle:demo:navDoc.html.twig');
+    return this.renderSync('demo-bundle:demo:navDoc.html.twig');
   }
 
   /**
@@ -337,7 +337,7 @@ module.exports = class demoController extends nodefony.controller {
         code = result[2].code;
         err = result[2].err;
         this.logger("PROMISE SYSCALL DONE", "DEBUG");
-        return this.render("demoBundle:demo:exec.html.twig", {
+        return this.render("demo-bundle:demo:exec.html.twig", {
           hostname: hostname,
           ping: ping,
           pwd: pwd,
@@ -414,7 +414,7 @@ module.exports = class demoController extends nodefony.controller {
         bodyRaw += chunk;
       });
       res.on('end', () => {
-        this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
+        this.renderAsync("demo-bundle:demo:httpRequest.html.twig", {
           host: host,
           type: type,
           bodyRaw: bodyRaw,
@@ -423,7 +423,7 @@ module.exports = class demoController extends nodefony.controller {
     });
     req.on('error', (e) => {
       this.logger('Problem with request: ' + e.message, "ERROR");
-      this.renderAsync("demoBundle:demo:httpRequest.html.twig", {
+      this.renderAsync("demo-bundle:demo:httpRequest.html.twig", {
         host: host,
         type: type,
         bodyRaw: e,
@@ -438,7 +438,7 @@ module.exports = class demoController extends nodefony.controller {
    *
    */
   indexRealTimeAction() {
-    return this.render("demoBundle:realTime:index.html.twig", {
+    return this.render("demo-bundle:realTime:index.html.twig", {
       title: "realTime"
     });
   }

@@ -79,7 +79,7 @@ module.exports = class random {
 
     this.kernel.listen(this, "onReady", () => {
       if (this.kernel.type === "SERVER") {
-        this.port = this.container.getParameters("bundles.realTime.services.random.port") || 1315;
+        this.port = this.container.getParameters("bundles.realtime.services.random.port") || 1315;
         this.createServer();
         this.protocol = new nodefony.io.protocol["json-rpc"]();
       }

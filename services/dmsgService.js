@@ -39,7 +39,7 @@ module.exports = class dmsg {
 
     this.kernel.listen(this, "onReady", () => {
       if (this.kernel.type === "SERVER") {
-        this.port = this.container.getParameters("bundles.realTime.services.dmsg.port") || 1316;
+        this.port = this.container.getParameters("bundles.realtime.services.dmsg.port") || 1316;
         this.createWatcher();
         this.server = null;
         this.createServer();
@@ -67,7 +67,7 @@ module.exports = class dmsg {
       this.watcher.listen(this, 'onError', (error) => {
         this.realTime.logger(error, "ERROR");
       });
-      this.watcher.listen(this, 'onClose', (watcher) => {
+      this.watcher.listen(this, 'onClose', ( /*watcher*/ ) => {
         //this.realTime.logger(watcher);
       });
     } catch (e) {

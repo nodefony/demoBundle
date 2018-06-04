@@ -25,9 +25,9 @@ module.exports = class loginController extends nodefony.controller {
     switch (type) {
     case "passport-local":
       log.type = type;
-      return this.render("demoBundle:login:login.html.twig", log);
+      return this.render("demo:login:login.html.twig", log);
     default:
-      return this.render("frameworkBundle::401.html.twig", log);
+      return this.render("framework::401.html.twig", log);
     }
   }
 
@@ -41,7 +41,7 @@ module.exports = class loginController extends nodefony.controller {
     if (adduser) {
       log.adduser = adduser;
     }
-    return this.render('demoBundle:login:subscribe.html.twig', log);
+    return this.render('demo:login:subscribe.html.twig', log);
   }
 
   /**

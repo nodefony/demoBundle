@@ -5,7 +5,7 @@ module.exports = class uploadController extends nodefony.controller {
   }
 
   indexUploadAction() {
-    return this.render('demoBundle:upload:upload.html.twig');
+    return this.render('demo-bundle:upload:upload.html.twig');
   }
 
   uploadAction() {
