@@ -2,7 +2,7 @@ module.exports = {
   websocket: {
     pattern: "/websocket",
     defaults: {
-      controller: "demoBundle:websocket:websocket"
+      controller: "demo:websocket:websocket"
     },
     requirements: {
       method: ["GET", "WEBSOCKET"]

@@ -2,7 +2,7 @@ module.exports = {
   webAudioApi: {
     pattern: "/webAudioApi",
     defaults: {
-      controller: "demoBundle:webAudio:mix"
+      controller: "demo:webAudio:mix"
     }
   }
 };

@@ -2,7 +2,7 @@ module.exports = {
   indexReal: {
     pattern: "/demo/realtime",
     defaults: {
-      controller: "demoBundle:demo:indexRealTime"
+      controller: "demo:demo:indexRealTime"
     },
     requirements: {
       method: "GET"

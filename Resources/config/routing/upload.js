@@ -2,7 +2,7 @@ module.exports = {
   upload: {
     pattern: "/upload",
     defaults: {
-      controller: "demoBundle:upload:indexUpload"
+      controller: "demo:upload:indexUpload"
     },
     requirements: {
       method: "GET"
@@ -11,7 +11,7 @@ module.exports = {
   uploadFile: {
     pattern: "/fileupload",
     defaults: {
-      controller: "demoBundle:upload:upload"
+      controller: "demo:upload:upload"
     },
     requirements: {
       method: "POST"

@@ -2,7 +2,7 @@ module.exports = {
   orm: {
     pattern: "/sequelize",
     defaults: {
-      controller: "demoBundle:orm:sequelize"
+      controller: "demo:orm:sequelize"
     },
     requirements: {
       method: "GET"
@@ -11,7 +11,7 @@ module.exports = {
   sql: {
     pattern: "/query/sql",
     defaults: {
-      controller: "demoBundle:orm:querySql"
+      controller: "demo:orm:querySql"
     },
     requirements: {
       method: "GET"
@@ -20,7 +20,7 @@ module.exports = {
   sqlJoin: {
     pattern: "/query/join",
     defaults: {
-      controller: "demoBundle:orm:querySqlJoin"
+      controller: "demo:orm:querySqlJoin"
     },
     requirements: {
       method: "GET"

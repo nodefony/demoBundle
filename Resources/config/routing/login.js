@@ -3,25 +3,25 @@ module.exports = {
   loginAll: {
     pattern: "/demo/login/{type}",
     defaults: {
-      controller: "demoBundle:login:login"
+      controller: "demo:login:login"
     }
   },
   demoLogout: {
     pattern: "/logout",
     defaults: {
-      controller: "securityBundle:logout:logout"
+      controller: "demo:logout:logout"
     }
   },
   subscribe: {
     pattern: "/subscribe",
     defaults: {
-      controller: "demoBundle:login:subscribe"
+      controller: "demo:login:subscribe"
     }
   },
   adduser: {
     pattern: "/adduser",
     defaults: {
-      controller: "demoBundle:login:addUser"
+      controller: "demo:login:addUser"
     },
     requirements: {
       method: "POST"

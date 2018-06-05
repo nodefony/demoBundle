@@ -5,4 +5,4 @@
 ###  DOCUMENTATION  ###
 documentation:
   pattern:     /documentation
-  defaults: {"controller": "demoBundle:demo:readme"}
+  defaults: {"controller": "demo:demo:readme"}

@@ -9,20 +9,20 @@ module.exports = class finderController extends nodefony.controller {
 
   indexAction() {
     let query = this.getParameters("query");
-    let path = null;
+    let Path = null;
     if (!query.get.path) {
-      path = this.bundle.path + "/Resources/images";
+      Path = path.resolve(this.bundle.path, "Resources", "images");
     } else {
-      path = query.get.path;
+      Path = query.get.path;
     }
     // secure path
     let securePath = this.kernel.getBundles("demo").path;
     let reg = new RegExp("^" + securePath);
-    if (!reg.test(path)) {
-      return this.createUnauthorizedException("Unauthorized Path : " + path);
+    if (!reg.test(Path)) {
+      return this.createUnauthorizedException("Unauthorized Path : " + Path);
     }
     try {
-      return this.search(path);
+      return this.search(Path);
     } catch (e) {
       throw e;
     }

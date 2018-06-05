@@ -13,19 +13,19 @@ module.exports = nodefony.extend(orm, login, upload, firewall, finder, websocket
   redirect: {
     pattern: "/redirect",
     defaults: {
-      controller: "demoBundle:demo:redirectGoogle"
+      controller: "demo:demo:redirectGoogle"
     }
   },
   json: {
     pattern: "/json",
     defaults: {
-      controller: "demoBundle:demo:json"
+      controller: "demo:demo:json"
     }
   },
   "json-async": {
     pattern: "/jsonAsync",
     defaults: {
-      controller: "demoBundle:demo:jsonAsync"
+      controller: "demo:demo:jsonAsync"
     }
   }
 });
