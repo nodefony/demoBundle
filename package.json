@@ -18,7 +18,9 @@
     "url": "https://github.com/nodefony/help/issues"
   },
   "dependencies": {
-    "bootstrap": "=3.3.7"
+    "@nodefony/stage": "^0.1.10",
+    "bootstrap": "=3.3.7",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {},
   "license": "CECILL-B",
