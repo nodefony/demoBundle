@@ -6,16 +6,12 @@
 
 {% block stylesheets %}
 
-  {{ parent() }}
-
   <link href="{{CDN('stylesheet')}}/demo-bundle/assets/css/layout.css" rel="stylesheet"/>
   <link href="{{CDN('stylesheet')}}/monitoring-bundle/vendors/dataTable/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 
 {% endblock %}
 
 {% block javascripts %}
-
-  {{ parent() }}
 
   <script type="text/javascript" src="{{CDN('javascript')}}/demo-bundle/assets/js/layout.js"></script>
   <script type="text/javascript" src="{{CDN('javascript')}}/monitoring-bundle/vendors/dataTable/js/jquery.dataTables.js"></script>
@@ -35,10 +31,10 @@
   <header class="header">
     {{ render( controller("demo-bundle:demo:nav", login ))}}
   </header>
-{% endblock %}
 
-{% block footer %}
-  <footer >
-    {{ render( controller("demo-bundle:demo:footer" )) }}
-  </footer>
+  {% block footer %}
+    <footer >
+      {{ render( controller("demo-bundle:demo:footer" )) }}
+    </footer>
+  {% endblock %}
 {% endblock %}
