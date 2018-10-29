@@ -98,7 +98,7 @@ security:
     #         form_login:
     #           login_path:    /login/ldap
     #           default_target_path: /
-    #         passport-ldapauth:
+    #         passport-ldap:
     #           server:
     #             url:         'ldap://ldad-server.com'
     #             searchBase:  'dc=nodefony,dc=com'
