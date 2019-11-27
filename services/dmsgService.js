@@ -37,7 +37,7 @@ module.exports = class dmsg {
 
     this.fileDmsg = this.kernel.platform === "darwin" ? "/var/log/system.log" : "/var/log/message";
 
-    this.kernel.listen(this, "onReady", () => {
+    this.kernel.once( "onReady", () => {
       if (this.kernel.type === "SERVER") {
         this.port = this.container.getParameters("bundles.realtime.services.dmsg.port") || 1316;
         this.createWatcher();
@@ -64,10 +64,10 @@ module.exports = class dmsg {
         binaryInterval: 300
       }, this.container);
 
-      this.watcher.listen(this, 'onError', (error) => {
+      this.watcher.on( 'onError', (error) => {
         this.realTime.logger(error, "ERROR");
       });
-      this.watcher.listen(this, 'onClose', ( /*watcher*/ ) => {
+      this.watcher.on( 'onClose', ( /*watcher*/ ) => {
         //this.realTime.logger(watcher);
       });
     } catch (e) {
@@ -168,7 +168,7 @@ module.exports = class dmsg {
       this.realTime.logger("Create server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
     });
 
-    this.kernel.listen(this, "onTerminate", () => {
+    this.kernel.once( "onTerminate", () => {
       this.stopServer();
     });
 

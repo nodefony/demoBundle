@@ -77,7 +77,7 @@ module.exports = class random {
     this.port = 1315;
     this.server = null;
 
-    this.kernel.listen(this, "onReady", () => {
+    this.kernel.once( "onReady", () => {
       if (this.kernel.type === "SERVER") {
         this.port = this.container.getParameters("bundles.realtime.services.random.port") || 1315;
         this.createServer();
@@ -234,7 +234,7 @@ module.exports = class random {
     /*
      *  KERNEL EVENT TERMINATE
      */
-    this.kernel.listen(this, "onTerminate", () => {
+    this.kernel.once( "onTerminate", () => {
       this.stopServer();
     });
   }
