@@ -18,8 +18,8 @@
     "url": "https://github.com/nodefony/help/issues"
   },
   "dependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.5",
     "@nodefony/stage": "^0.2.3",
     "babel-loader": "^8.0.6",
     "bootstrap": "=3.3.7",
@@ -31,7 +31,7 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "terser-webpack-plugin": "^2.2.1",
+    "terser-webpack-plugin": "^2.2.2",
     "webpack": "^4.41.2",
     "webpack-merge": "^4.2.2"
   },
