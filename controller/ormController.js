@@ -13,7 +13,7 @@ module.exports = class ormController extends nodefony.controller {
    *
    */
   querySqlAction() {
-    return this.nodefonyDb.query('SELECT * FROM users')
+    return this.nodefonyDb.query('SELECT * FROM user')
       .then((result) => {
         return this.render('demo-bundle:orm:orm.html.twig', {
           users: result[0],
@@ -29,7 +29,7 @@ module.exports = class ormController extends nodefony.controller {
    *
    */
   querySqlJoinAction() {
-    return this.nodefonyDb.query('SELECT * FROM sessions S LEFT JOIN users U on U.username = S.username ')
+    return this.nodefonyDb.query('SELECT * FROM sessions S LEFT JOIN user U on U.username = S.username ')
       .then((result) => {
         let joins = result[0];
         for (let i = 0; i < joins.length; i++) {
