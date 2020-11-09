@@ -79,8 +79,8 @@ module.exports = merge({
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "./css/[name].css",
-      allChunks: true
+      filename: "./css/[name].css"
+      //allChunks: true
     })
   ]
 }, config);

@@ -3,6 +3,6 @@
 ##################################
 
 ###  DOCUMENTATION  ###
-documentation:
-  pattern:     /documentation
-  defaults: {"controller": "demo:demo:readme"}
+#documentation:
+#  pattern:     /documentation
+#  defaults: {"controller": "demo:demo:readme"}

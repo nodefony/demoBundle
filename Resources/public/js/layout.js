@@ -9,7 +9,18 @@ require("../plugins/gritter/js/jquery.gritter.js");
 require('../clean/css/style.css');
 require('../plugins/gritter/css/jquery.gritter.css');
 
+// import base library
+const nodefony = require('nodefony-client')
+//chunk
+const socket = require("nodefony-client/dist/socket");
+socket(nodefony);
+const webaudio = require("nodefony-client/dist/webaudio");
+webaudio(nodefony);
+const media = require("nodefony-client/dist/medias");
+media(nodefony);
+
 module.exports = function () {
   // expose stage in gobal window object
   window.stage = stage;
+  window.nodefony = nodefony;
 }();

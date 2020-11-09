@@ -25,7 +25,7 @@ module.exports = class dmsg {
     this.realTime = realTime;
     this.kernel = kernel;
     if (!this.realTime) {
-      this.kernel.logger("REALIME SERVICE NOT FOUND", "WARNING", "SERVICE DMSG");
+      this.kernel.log("REALIME SERVICE NOT FOUND", "WARNING", "SERVICE DMSG");
       return;
     }
     this.container = container;
@@ -47,11 +47,11 @@ module.exports = class dmsg {
     });
   }
 
-  logger(pci, severity, msgid) {
+  log(pci, severity, msgid) {
     if (!msgid) {
-      msgid = "SERVICE DMSG ";
+      msgid = "DMSG";
     }
-    return this.realTime.logger(pci, severity, "SERVICE DMSG");
+    return this.realTime.log(pci, severity, "SERVICE DMSG");
   }
 
   createWatcher() {
@@ -65,13 +65,13 @@ module.exports = class dmsg {
       }, this.container);
 
       this.watcher.on('onError', (error) => {
-        this.realTime.logger(error, "ERROR");
+        this.realTime.log(error, "ERROR");
       });
       this.watcher.on('onClose', ( /*watcher*/ ) => {
         //this.realTime.logger(watcher);
       });
     } catch (e) {
-      this.logger(e, "ERROR");
+      this.log(e, "ERROR");
     }
 
   }
@@ -98,12 +98,12 @@ module.exports = class dmsg {
             //conn.write(stat.size);
           }
         } catch (e) {
-          this.logger(e, "ERROR");
+          this.log(e, "ERROR");
         }
       };
       this.watcher.listen(this, 'onChange', callback);
       socket.on('end', () => {
-        this.logger("CLOSE CONNECTION TO SERVICE DMSG FROM : " + socket.remoteAddress + " ID :" + conn.id, "INFO");
+        this.log("CLOSE CONNECTION TO SERVICE DMSG FROM : " + socket.remoteAddress + " ID :" + conn.id, "INFO");
         delete this.connections[conn.fd];
         this.watcher.removeListener("onChange", callback);
         conn = null;
@@ -117,7 +117,7 @@ module.exports = class dmsg {
     });
 
     this.server.on("connection", (socket) => {
-      this.logger("CONNECT TO SERVICE DMSG FROM : " + socket.remoteAddress, "INFO");
+      this.log("CONNECT TO SERVICE DMSG FROM : " + socket.remoteAddress, "INFO");
       socket.on("data", ( /*buffer*/ ) => {
         try {
           if (this.nbConnections === 0) {
@@ -125,7 +125,7 @@ module.exports = class dmsg {
           }
           this.nbConnections++;
         } catch (e) {
-          this.realTime.logger(e, "ERROR");
+          this.realTime.log(e, "ERROR");
         }
       });
     });
@@ -138,18 +138,18 @@ module.exports = class dmsg {
       let myError = new nodefony.Error(error);
       switch (error.errno) {
       case "ENOTFOUND":
-        this.logger("CHECK DOMAIN IN /etc/hosts or config unable to connect to : " + this.domain, "ERROR");
-        this.logger(myError, "CRITIC");
+        this.log("CHECK DOMAIN IN /etc/hosts or config unable to connect to : " + this.domain, "ERROR");
+        this.log(myError, "CRITIC");
         break;
       case "EADDRINUSE":
-        this.logger("Domain : " + this.domain + " Port : " + this.port + " ==> ALREADY USE ", "ERROR");
-        this.logger(myError, "CRITIC");
+        this.log("Domain : " + this.domain + " Port : " + this.port + " ==> ALREADY USE ", "ERROR");
+        this.log(myError, "CRITIC");
         setTimeout(() => {
           this.server.close();
         }, 1000);
         break;
       default:
-        this.logger(myError, "CRITIC");
+        this.log(myError, "CRITIC");
       }
     });
 
@@ -157,7 +157,7 @@ module.exports = class dmsg {
      *	EVENT CLOSE
      */
     this.server.on("close", ( /*socket*/ ) => {
-      this.realTime.logger("SHUTDOWN server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+      this.realTime.log("SHUTDOWN server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
     });
 
 
@@ -165,7 +165,7 @@ module.exports = class dmsg {
      *	LISTEN ON DOMAIN
      */
     this.server.listen(this.port, this.domain, () => {
-      this.realTime.logger("Create server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+      this.realTime.log("Create server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
     });
 
     this.kernel.once("onTerminate", () => {
@@ -184,7 +184,7 @@ module.exports = class dmsg {
       try {
         this.server.close();
       } catch (e) {
-        this.logger(e, "ERROR");
+        this.log(e, "ERROR");
       }
     }
   }

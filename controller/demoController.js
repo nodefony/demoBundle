@@ -287,7 +287,7 @@ module.exports = class demoController extends nodefony.controller {
           return reject(error);
         }
         if (stderr) {
-          this.logger(stderr, "ERROR");
+          this.log(stderr, "ERROR");
         }
         return resolve(stdout);
       });
@@ -307,12 +307,12 @@ module.exports = class demoController extends nodefony.controller {
 
       du.stderr.on('data', (data) => {
         err += data;
-        this.logger("ERROR : " + err, "ERROR");
+        this.log("ERROR : " + err, "ERROR");
       });
 
       du.on('close', (code) => {
         code = code;
-        this.logger("child process exited with code : " + code, "INFO");
+        this.log("child process exited with code : " + code, "INFO");
         resolve({
           ping: str,
           code: code,
@@ -336,7 +336,7 @@ module.exports = class demoController extends nodefony.controller {
         ping = result[2].ping;
         code = result[2].code;
         err = result[2].err;
-        this.logger("PROMISE SYSCALL DONE", "DEBUG");
+        this.log("PROMISE SYSCALL DONE", "DEBUG");
         return this.render("demo-bundle:demo:exec.html.twig", {
           hostname: hostname,
           ping: ping,
@@ -346,7 +346,7 @@ module.exports = class demoController extends nodefony.controller {
           date: new Date()
         });
       }).catch((e) => {
-        this.logger(e, "ERROR");
+        this.log(e, "ERROR");
         this.createException(e);
       });
   }
@@ -410,7 +410,7 @@ module.exports = class demoController extends nodefony.controller {
       let bodyRaw = "";
       res.setEncoding('utf8');
       res.on('data', (chunk) => {
-        this.logger(chunk, "DEBUG");
+        this.log(chunk, "DEBUG");
         bodyRaw += chunk;
       });
       res.on('end', () => {
@@ -422,7 +422,7 @@ module.exports = class demoController extends nodefony.controller {
       });
     });
     req.on('error', (e) => {
-      this.logger('Problem with request: ' + e.message, "ERROR");
+      this.log('Problem with request: ' + e.message, "ERROR");
       this.renderAsync("demo-bundle:demo:httpRequest.html.twig", {
         host: host,
         type: type,

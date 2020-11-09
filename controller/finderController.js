@@ -114,14 +114,12 @@ module.exports = class finderController extends nodefony.controller {
 
   encode(file) {
     switch (true) {
-
     case /^image/.test(file.mimeType):
     case /^video/.test(file.mimeType):
     case /^audio/.test(file.mimeType):
     case /application\/pdf/.test(file.mimeType):
       try {
         this.renderMediaStream(file);
-
       } catch (error) {
         switch (error.code) {
         case "EISDIR":
