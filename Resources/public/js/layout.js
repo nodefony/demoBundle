@@ -13,11 +13,11 @@ require('../plugins/gritter/css/jquery.gritter.css');
 const nodefony = require('nodefony-client')
 //chunk
 const socket = require("nodefony-client/dist/socket");
-socket(nodefony);
+socket.default(nodefony);
 const webaudio = require("nodefony-client/dist/webaudio");
-webaudio(nodefony);
+webaudio.default(nodefony);
 const media = require("nodefony-client/dist/medias");
-media(nodefony);
+media.default(nodefony);
 
 module.exports = function () {
   // expose stage in gobal window object
