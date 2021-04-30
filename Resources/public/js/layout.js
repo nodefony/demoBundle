@@ -12,11 +12,11 @@ require('../plugins/gritter/css/jquery.gritter.css');
 // import base library
 const nodefony = require('nodefony-client')
 //chunk
-const socket = require("nodefony-client/dist/socket");
+const socket = require("nodefony-client/src/transports/socket/socket");
 socket.default(nodefony);
-const webaudio = require("nodefony-client/dist/webaudio");
+const webaudio = require("nodefony-client/src/medias/webaudio/webaudio");
 webaudio.default(nodefony);
-const media = require("nodefony-client/dist/medias");
+const media = require("nodefony-client/src/medias/medias");
 media.default(nodefony);
 
 module.exports = function () {
