@@ -28,7 +28,7 @@
     "file-loader": "^6.2.0",
     "font-awesome": "^4.7.0",
     "less": "^4.1.1",
-    "less-loader": "^9.1.0",
+    "less-loader": "^10.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "nodefony-client": "^6.0.0-beta.18",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
