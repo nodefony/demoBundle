@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const context = path.resolve(__dirname, "..", "public");
 const public = path.resolve(__dirname, "..", "public", "assets");
 const bundleName = path.basename(path.resolve(__dirname, "..", ".."));
-const publicPath = bundleName + "/assets/";
+const publicPath = `/${bundleName}/assets/`;
 
 let config = null;
 if (kernel.environment === "dev") {
@@ -32,6 +32,7 @@ module.exports = merge({
     publicPath: publicPath,
     filename: "./js/[name].js",
     library: "[name]",
+    hashFunction: "xxhash64",
     libraryTarget: "umd"
   },
   externals: {
@@ -51,12 +52,8 @@ module.exports = merge({
     }, {
       // CSS EXTRACT
       test: new RegExp("\.(less|css)$"),
-      use: [{
-           loader: MiniCssExtractPlugin.loader,
-           options: {
-
-           },
-         },
+      use: [
+         MiniCssExtractPlugin.loader,
          "css-loader",
          'less-loader'
       ]
@@ -85,7 +82,6 @@ module.exports = merge({
   plugins: [
     new MiniCssExtractPlugin({
       filename: "./css/[name].css"
-      //allChunks: true
     })
   ]
 }, config);
