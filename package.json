@@ -18,8 +18,8 @@
     "url": "https://github.com/nodefony/help/issues"
   },
   "dependencies": {
-    "@babel/core": "7.19.1",
-    "@babel/preset-env": "7.19.1",
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
     "@nodefony/stage": "^0.2.4",
     "babel-loader": "8.2.5",
     "bootstrap": "=3.3.7",
