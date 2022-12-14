@@ -24,7 +24,7 @@
     "babel-loader": "^9.1.0",
     "bootstrap": "=3.3.7",
     "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.7.2",
+    "css-loader": "6.7.3",
     "file-loader": "^6.2.0",
     "font-awesome": "^4.7.0",
     "less": "4.1.3",
