@@ -18,7 +18,7 @@
     "url": "https://github.com/nodefony/help/issues"
   },
   "dependencies": {
-    "@babel/core": "7.20.5",
+    "@babel/core": "7.20.7",
     "@babel/preset-env": "^7.19.4",
     "@nodefony/stage": "^0.2.4",
     "babel-loader": "^9.1.0",
