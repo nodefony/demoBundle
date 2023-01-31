@@ -9,7 +9,7 @@ module.exports = {
     }
   },
 
-  //LOCAL AREA
+  // LOCAL AREA
   localArea: {
     pattern: "/local",
     defaults: {
@@ -30,7 +30,7 @@ module.exports = {
       controller: "framework:default:401"
     }
   },
-  //GOOGLE AUTH AREA
+  // GOOGLE AUTH AREA
   googleArea: {
     pattern: "/auth/google",
     defaults: {

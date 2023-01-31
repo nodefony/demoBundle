@@ -1,26 +1,29 @@
-module.exports = function () {
+module.exports = (function () {
+  const handleLoginPageChangeBackground = function () {
+    $("[data-click=\"change-bg\"]").on("click", function () {
+      const targetImage = "[data-id=\"login-cover-image\"]";
+      const targetImageSrc = $(this).find("img")
+        .attr("src");
+      const targetImageHtml = `<img src="${targetImageSrc}" data-id="login-cover-image" />`;
 
-  var handleLoginPageChangeBackground = function () {
-    $('[data-click="change-bg"]').on('click', function () {
-      var targetImage = '[data-id="login-cover-image"]';
-      var targetImageSrc = $(this).find('img').attr('src');
-      var targetImageHtml = '<img src="' + targetImageSrc + '" data-id="login-cover-image" />';
-
-      $('.login-cover-image').prepend(targetImageHtml);
-      $(targetImage).not('[src="' + targetImageSrc + '"]').fadeOut('slow', function () {
-        $(this).remove();
-      });
-      $('[data-click="change-bg"]').closest('li').removeClass('active');
-      $(this).closest('li').addClass('active');
+      $(".login-cover-image").prepend(targetImageHtml);
+      $(targetImage).not(`[src="${targetImageSrc}"]`)
+        .fadeOut("slow", function () {
+          $(this).remove();
+        });
+      $("[data-click=\"change-bg\"]").closest("li")
+        .removeClass("active");
+      $(this).closest("li")
+        .addClass("active");
     });
   };
 
   /* 05. Handle Page Load - Fade in
    	------------------------------------------------ */
-  var handlePageContentView = function () {
+  const handlePageContentView = function () {
     "use strict";
-    $.when($('#page-loader').addClass('hide')).done(function () {
-      $('#page-container').addClass('in');
+    $.when($("#page-loader").addClass("hide")).done(() => {
+      $("#page-container").addClass("in");
     });
   };
 
@@ -29,12 +32,12 @@ module.exports = function () {
       severity: {
         data: "ERROR,INFO"
       }
-    }, function (pdu) {
+    }, (pdu) => {
       if (pdu.payload.stack) {
-        console.error("SYSLOG " + pdu.severityName + " " + pdu.msgid + " " + new Date(pdu.timeStamp) + " " + pdu.msg + " : " + pdu.payload.stack);
+        console.error(`SYSLOG ${pdu.severityName} ${pdu.msgid} ${new Date(pdu.timeStamp)} ${pdu.msg} : ${pdu.payload.stack}`);
       } else {
         $.gritter.add({
-          title: "NODEFONY " + pdu.severityName,
+          title: `NODEFONY ${pdu.severityName}`,
           text: pdu.payload
         });
       }
@@ -44,48 +47,47 @@ module.exports = function () {
       severity: {
         data: "CRITIC,WARNING,DEBUG "
       }
-    }, function (pdu) {
+    }, (pdu) => {
       switch (pdu.severityName) {
       case "CRITIC":
-        console.error("SYSLOG " + pdu.severityName + " " + pdu.msgid + " " + new Date(pdu.timeStamp) + " " + pdu.msg + " : " + pdu.payload);
+        console.error(`SYSLOG ${pdu.severityName} ${pdu.msgid} ${new Date(pdu.timeStamp)} ${pdu.msg} : ${pdu.payload}`);
         break;
       case "WARNING":
-        console.warn("SYSLOG " + pdu.severityName + " " + pdu.msgid + " " + new Date(pdu.timeStamp) + " " + pdu.msg + " : " + pdu.payload);
+        console.warn(`SYSLOG ${pdu.severityName} ${pdu.msgid} ${new Date(pdu.timeStamp)} ${pdu.msg} : ${pdu.payload}`);
         break;
       case "DEBUG":
-        console.log("SYSLOG " + pdu.severityName + " " + pdu.msgid + " " + new Date(pdu.timeStamp) + " " + pdu.msg + " : " + pdu.payload);
+        console.log(`SYSLOG ${pdu.severityName} ${pdu.msgid} ${new Date(pdu.timeStamp)} ${pdu.msg} : ${pdu.payload}`);
         break;
       }
     });
 
     return this.syslog;
-  }
-  var kernel = new stage.appKernel("dev", {
+  };
+  const kernel = new stage.appKernel("dev", {
     debug: true,
     router: false,
 
-    onBoot: function (kernel) {
-      //this.login = new stage.login(this, $("#login"));
+    onBoot (kernel) {
+      // this.login = new stage.login(this, $("#login"));
     },
-    onDomLoad: function () {
+    onDomLoad () {
       try {
         handleLoginPageChangeBackground();
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     },
-    onDomReady: function () {
-
-      var error = $("#error");
+    onDomReady () {
+      const error = $("#error");
       if (error.length) {
-        var message = error.html();
+        const message = error.html();
         $("#error").remove();
         if (message !== "Missing credentials") {
           this.logger(message, "ERROR");
         }
       }
 
-      var adduser = $("#adduser").html();
+      const adduser = $("#adduser").html();
       if (adduser) {
         $("#adduser").remove();
         this.logger(adduser, "INFO");
@@ -96,10 +98,9 @@ module.exports = function () {
         break;
       default:
         this.logger("FACTOY AUTHENTICATION : loginType NOT EXIST");
-
       }
-      handlePageContentView()
+      handlePageContentView();
     }
   });
   return kernel;
-}();
+}());

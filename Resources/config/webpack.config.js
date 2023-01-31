@@ -1,6 +1,6 @@
 const path = require("path");
-//const webpack = require('webpack');
-const { merge } = require('webpack-merge');
+// const webpack = require('webpack');
+const {merge} = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const context = path.resolve(__dirname, "..", "public");
@@ -17,9 +17,9 @@ if (kernel.environment === "dev") {
 
 
 module.exports = merge({
-  context: context,
+  context,
   target: "web",
-  //watch: false,
+  // watch: false,
   entry: {
     layout: "./js/layout.js",
     demo: "./js/index.js",
@@ -29,7 +29,7 @@ module.exports = merge({
   },
   output: {
     path: public,
-    publicPath: publicPath,
+    publicPath,
     filename: "./js/[name].js",
     library: "[name]",
     hashFunction: "xxhash64",
@@ -44,39 +44,39 @@ module.exports = merge({
       test: new RegExp("\.es6$|\.js$"),
       exclude: new RegExp("node_modules"),
       use: [{
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
-          presets: ['@babel/preset-env']
+          presets: ["@babel/preset-env"]
         }
       }]
     }, {
       // CSS EXTRACT
       test: new RegExp("\.(less|css)$"),
       use: [
-         MiniCssExtractPlugin.loader,
-         "css-loader",
-         'less-loader'
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+        "less-loader"
       ]
     }, {
       // SASS
       test: new RegExp(".scss$"),
       use: [{
-        loader: 'style-loader'
+        loader: "style-loader"
       }, {
-        loader: 'css-loader'
+        loader: "css-loader"
       }, {
-        loader: 'sass-loader'
+        loader: "sass-loader"
       }]
     }, {
       test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-      type: 'asset/inline'
+      type: "asset/inline"
     }, {
       // IMAGES
       test: /\.(gif|png|jpe?g|svg)$/i,
-      type: 'asset/resource',
+      type: "asset/resource",
       generator: {
-         filename: "images/[name][ext][query]",
-       }
+        filename: "images/[name][ext][query]"
+      }
     }]
   },
   plugins: [

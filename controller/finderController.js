@@ -2,13 +2,12 @@
  *	CONTROLLER finder
  */
 module.exports = class finderController extends nodefony.controller {
-
-  constructor(container, context) {
+  constructor (container, context) {
     super(container, context);
   }
 
-  indexAction() {
-    let query = this.getParameters("query");
+  indexAction () {
+    const query = this.getParameters("query");
     let Path = null;
     if (!query.get.path) {
       Path = path.resolve(this.bundle.path, "Resources", "images");
@@ -16,10 +15,10 @@ module.exports = class finderController extends nodefony.controller {
       Path = query.get.path;
     }
     // secure path
-    let securePath = this.kernel.getBundles("demo").path;
-    let reg = new RegExp("^" + securePath);
+    const securePath = this.kernel.getBundles("demo").path;
+    const reg = new RegExp(`^${securePath}`);
     if (!reg.test(Path)) {
-      return this.createUnauthorizedException("Unauthorized Path : " + Path);
+      return this.createUnauthorizedException(`Unauthorized Path : ${Path}`);
     }
     try {
       return this.search(Path);
@@ -28,15 +27,15 @@ module.exports = class finderController extends nodefony.controller {
     }
   }
 
-  downloadAction() {
+  downloadAction () {
     let path = null;
-    let query = this.getParameters("query");
+    const query = this.getParameters("query");
     if (!query.get.path) {
       throw new Error("Download Not path to host");
     } else {
       path = query.get.path;
     }
-    let file = new nodefony.fileClass(path);
+    const file = new nodefony.fileClass(path);
 
     try {
       return this.encode(file);
@@ -45,24 +44,24 @@ module.exports = class finderController extends nodefony.controller {
     }
   }
 
-  search(path) {
-    //let response = null;
+  search (path) {
+    // let response = null;
     try {
-      var file = new nodefony.fileClass(path);
+      const file = new nodefony.fileClass(path);
       switch (file.type) {
       case "symbolicLink":
       case "Directory":
         return new Promise((resolve, reject) => {
           new nodefony.finder({
-            path: path,
+            path,
             json: true,
             followSymLink: true,
-            //seeHidden:true,
+            // seeHidden:true,
             recurse: false,
-            onDirectory: function (File /*, finder*/ ) {
+            onDirectory (File /* , finder*/) {
               File.link = file.type;
             },
-            onFile: function (File /*, finder*/ ) {
+            onFile (File /* , finder*/) {
               switch (File.mimeType) {
               case "text/plain":
                 File.link = "Link";
@@ -75,28 +74,27 @@ module.exports = class finderController extends nodefony.controller {
               if (error) {
                 return reject(error);
               }
-              return resolve(this.render('demo-bundle:finder:index.html.twig', {
+              return resolve(this.render("demo-bundle:finder:index.html.twig", {
                 title: "Finder",
                 files: files.json
               }));
             }
           });
-
         });
       case "File":
         switch (file.mimeType) {
         case "text/plain":
-          return this.render('demo-bundle:finder:files.html.twig', {
+          return this.render("demo-bundle:finder:files.html.twig", {
             content: file.content(file.encoding),
             mime: file.mimeType,
             encoding: file.encoding
           });
         case "text/x-markdown":
-          let res = this.htmlMdParser(file.content(file.encoding), {
+          const res = this.htmlMdParser(file.content(file.encoding), {
             linkify: true,
             typographer: true
           });
-          return this.render('demo-bundle:finder:files.html.twig', {
+          return this.render("demo-bundle:finder:files.html.twig", {
             title: file.name,
             content: res,
             mime: file.mimeType,
@@ -112,18 +110,18 @@ module.exports = class finderController extends nodefony.controller {
     }
   }
 
-  encode(file) {
+  encode (file) {
     switch (true) {
-    case /^image/.test(file.mimeType):
-    case /^video/.test(file.mimeType):
-    case /^audio/.test(file.mimeType):
-    case /application\/pdf/.test(file.mimeType):
+    case (/^image/).test(file.mimeType):
+    case (/^video/).test(file.mimeType):
+    case (/^audio/).test(file.mimeType):
+    case (/application\/pdf/).test(file.mimeType):
       try {
         this.renderMediaStream(file);
       } catch (error) {
         switch (error.code) {
         case "EISDIR":
-          error.message = file.path + " : is Directory";
+          error.message = `${file.path} : is Directory`;
           break;
         }
         throw error;
@@ -136,7 +134,7 @@ module.exports = class finderController extends nodefony.controller {
       } catch (error) {
         switch (error.code) {
         case "EISDIR":
-          error.message = file.path + " : is Directory";
+          error.message = `${file.path} : is Directory`;
           break;
         }
         throw error;

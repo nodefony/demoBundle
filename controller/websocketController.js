@@ -1,6 +1,5 @@
 module.exports = class websocketController extends nodefony.controller {
-
-  constructor(container, context) {
+  constructor (container, context) {
     super(container, context);
   }
 
@@ -8,10 +7,11 @@ module.exports = class websocketController extends nodefony.controller {
    *
    *	DEMO WEBSOCKET
    */
-  websocketAction(message) {
+  websocketAction (message) {
     switch (this.getMethod()) {
     case "GET":
-      /*let server = null;
+
+      /* let server = null;
       switch (this.context.scheme) {
       case "http":
         server = this.get("httpServer");
@@ -20,7 +20,7 @@ module.exports = class websocketController extends nodefony.controller {
         server = this.get("httpsServer");
         break;
       }*/
-      return this.render('demo-bundle:websocket:websocket.html.twig', {
+      return this.render("demo-bundle:websocket:websocket.html.twig", {
         name: "websoket",
         host: this.request.host
       });
@@ -33,10 +33,10 @@ module.exports = class websocketController extends nodefony.controller {
         // SEND MESSAGES TO CLIENTS
         let i = 0;
         let id = setInterval(() => {
-          let mess = "I am a  message " + i + "\n";
-          this.logger("SEND TO CLIENT :" + mess, "INFO");
+          const mess = `I am a  message ${i}\n`;
+          this.logger(`SEND TO CLIENT :${mess}`, "INFO");
           this.context.send(mess);
-          //this.renderResponse(mess);
+          // this.renderResponse(mess);
           i++;
         }, 1000);
         setTimeout(() => {
@@ -56,5 +56,4 @@ module.exports = class websocketController extends nodefony.controller {
       throw new Error("REALTIME METHOD NOT ALLOWED");
     }
   }
-
 };

@@ -3,15 +3,14 @@
  *	CONTROLLER default
  *
  */
-const execSync = require('child_process').execSync;
-const exec = require('child_process').exec;
-const spawn = require('child_process').spawn;
+const {execSync} = require("child_process");
+const {exec} = require("child_process");
+const {spawn} = require("child_process");
 const http = require("http");
 const https = require("https");
 
 module.exports = class demoController extends nodefony.controller {
-
-  constructor(container, context) {
+  constructor (container, context) {
     super(container, context);
   }
 
@@ -20,16 +19,16 @@ module.exports = class demoController extends nodefony.controller {
    *    @Route ("/demo",
    *      name="demo")
    */
-  indexAction() {
+  indexAction () {
     // return  OBJECT by default view is : demo-bundle:demo:index.html.twig
     return {
       title: "nodefony",
       user: this.context.user,
       version: this.kernel.version,
-      nodefony: this.kernel.settings.name + " " + this.kernel.settings.system.version
+      nodefony: `${this.kernel.settings.name} ${this.kernel.settings.system.version}`
     };
     // WITH RENDER
-    /*return this.render("demo-bundle:demo:index.html.twig",{
+    /* return this.render("demo-bundle:demo:index.html.twig",{
     	title:"nodefony",
     	user: this.context.user,
     	nodefony:this.kernel.settings.name + " " + this.kernel.settings.system.version
@@ -40,8 +39,8 @@ module.exports = class demoController extends nodefony.controller {
    *	 renderView
    *
    */
-  renderviewAction() {
-    let content = this.renderView('demo-bundle:demo:documentation.html.twig', {
+  renderviewAction () {
+    const content = this.renderView("demo-bundle:demo:documentation.html.twig", {
       name: "render"
     });
     return this.renderResponse(content);
@@ -51,15 +50,15 @@ module.exports = class demoController extends nodefony.controller {
    *	@see renderResponse() with content html
    *
    */
-  htmlAction() {
-    return this.renderResponse('<h1> renderResponse </h1>');
+  htmlAction () {
+    return this.renderResponse("<h1> renderResponse </h1>");
   }
 
   /**
    *
    *	@see forward
    */
-  forwardAction() {
+  forwardAction () {
     return this.forward("frameworkBundle:default:index");
   }
 
@@ -67,30 +66,28 @@ module.exports = class demoController extends nodefony.controller {
    *
    *	@see redirect
    */
-  redirectGoogleAction() {
+  redirectGoogleAction () {
     // status 301 or 302
     return this.redirect("http://google.com");
-    //return this.redirect("/json", 302);
+    // return this.redirect("/json", 302);
   }
 
   /**
    *
    *	render JSON
    */
-  jsonAction() {
+  jsonAction () {
     return this.renderJson({
       foo: "bar",
       bar: "foo"
     });
   }
 
-  jsonAsyncAction() {
-    setTimeout(() => {
-      return this.renderJson({
-        foo: "bar",
-        bar: "foo"
-      });
-    });
+  jsonAsyncAction () {
+    setTimeout(() => this.renderJson({
+      foo: "bar",
+      bar: "foo"
+    }));
   }
 
   /**
@@ -98,24 +95,24 @@ module.exports = class demoController extends nodefony.controller {
    *	@see redirect with variables
    *	@see generateUrl
    */
-  generateUrlAction() {
+  generateUrlAction () {
     // absolute
     return this.redirect(this.generateUrl("user", {
       name: "cci"
     }, true));
 
     // relative
-    //return this.redirect ( this.generateUrl("user", {name:"cci"} );
+    // return this.redirect ( this.generateUrl("user", {name:"cci"} );
   }
 
-  readmeAction() {
-    let Path = this.kernel.rootDir + '/README.md';
-    let file = new nodefony.fileClass(Path);
-    let res = this.htmlMdParser(file.content(), {
+  readmeAction () {
+    const Path = `${this.kernel.rootDir}/README.md`;
+    const file = new nodefony.fileClass(Path);
+    const res = this.htmlMdParser(file.content(), {
       linkify: true,
       typographer: true
     });
-    return this.render('demo-bundle:demo:documentation.html.twig', {
+    return this.render("demo-bundle:demo:documentation.html.twig", {
       html: res
     });
   }
@@ -125,19 +122,19 @@ module.exports = class demoController extends nodefony.controller {
    *	DEMO navbar
    *
    */
-  navAction(login) {
+  navAction (login) {
     let audio = null;
     try {
       audio = this.generateUrl("webAudioApi");
     } catch (e) {
       audio = null;
     }
-    return this.renderSync('demo-bundle:layouts:navBar.html.twig', {
+    return this.renderSync("demo-bundle:layouts:navBar.html.twig", {
       user: this.context.user,
-      audio: audio,
+      audio,
       angular: this.kernel.getBundles("angular"),
       react: this.kernel.getBundles("react"),
-      login: login
+      login
     });
   }
 
@@ -146,12 +143,12 @@ module.exports = class demoController extends nodefony.controller {
    *	DEMO navbar
    *
    */
-  docAction() {
-    let docBundle = this.kernel.getBundles("documentation");
+  docAction () {
+    const docBundle = this.kernel.getBundles("documentation");
     if (docBundle) {
       return this.forward("documentation-bundle:default:navDoc");
     }
-    return this.renderSync('demo-bundle:demo:navDoc.html.twig');
+    return this.renderSync("demo-bundle:demo:navDoc.html.twig");
   }
 
   /**
@@ -160,22 +157,22 @@ module.exports = class demoController extends nodefony.controller {
    *
    *
    */
-  footerAction() {
-    let translateService = this.get("translation");
-    let version = this.kernel.settings.version;
-    let path = this.generateUrl("home");
-    let year = new Date().getFullYear();
-    let langs = translateService.getLangs();
-    let locale = this.getLocale();
+  footerAction () {
+    const translateService = this.get("translation");
+    const {version} = this.kernel.settings;
+    const path = this.generateUrl("home");
+    const year = new Date().getFullYear();
+    const langs = translateService.getLangs();
+    const locale = this.getLocale();
     let langOptions = "";
-    for (let ele in langs) {
+    for (const ele in langs) {
       if (locale === langs[ele].value) {
-        langOptions += '<option value="' + langs[ele].value + '" selected >' + langs[ele].name + '</option>';
+        langOptions += `<option value="${langs[ele].value}" selected >${langs[ele].name}</option>`;
       } else {
-        langOptions += '<option value="' + langs[ele].value + '" >' + langs[ele].name + '</option>';
+        langOptions += `<option value="${langs[ele].value}" >${langs[ele].name}</option>`;
       }
     }
-    let html = '<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">\
+    const html = `<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">\
 				<div class"container-fluid">\
 				<div class="navbar-header">\
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footer-collapse">\
@@ -184,9 +181,9 @@ module.exports = class demoController extends nodefony.controller {
 						<span class="icon-bar"></span>\
 						<span class="icon-bar"></span>\
 					</button>\
-					<a class=" text-primary navbar-text" href="' + path + '" style="margin-left:20px" >\
-					' + year + '\
-					<strong class="text-primary"> NODEFONY ' + version + '  ©</strong> \
+					<a class=" text-primary navbar-text" href="${path}" style="margin-left:20px" >\
+					${year}\
+					<strong class="text-primary"> NODEFONY ${version}  ©</strong> \
 					</a>\
 				</div>\
 				<div class="collapse navbar-collapse" id="footer-collapse">\
@@ -195,13 +192,13 @@ module.exports = class demoController extends nodefony.controller {
 					<ul class="nav navbar-nav navbar-right">\
 						<li  class="navbar-btn pull-right" style="margin-right:40px">\
 							<select id="langs" name="hl" class="form-control">\
-							' + langOptions + '\
+							${langOptions}\
 							</select>\
 						</li>\
 					</div>\
 				</div>\
 				</div>\
-			</div>';
+			</div>`;
     return this.renderResponse(html);
   }
 
@@ -212,18 +209,18 @@ module.exports = class demoController extends nodefony.controller {
    *  @Route ("/xmlResponse",
    *      name="xmlResponse")
    */
-  rawResponseSyncAction() {
+  rawResponseSyncAction () {
     // override timeout response
-    //this.getResponse().setTimeout(10000);
-    //return ;
+    // this.getResponse().setTimeout(10000);
+    // return ;
 
-    let settings = this.kernel.settings;
-    let content = '<xml><nodefony>\
-				<kernel name="' + settings.name + '" version="' + settings.system.version + '">\
-					<server type="HTTP" port="' + settings.system.httpPort + '"></server>\
-					<server type="HTTPS" port="' + settings.system.httpsPort + '"></server>\
+    const {settings} = this.kernel;
+    const content = `<xml><nodefony>\
+				<kernel name="${settings.name}" version="${settings.system.version}">\
+					<server type="HTTP" port="${settings.system.httpPort}"></server>\
+					<server type="HTTPS" port="${settings.system.httpsPort}"></server>\
 				</kernel>\
-			</nodefony></xml>';
+			</nodefony></xml>`;
     return this.renderResponse(content, 200, {
       "Content-Type": "Application/xml"
     });
@@ -236,27 +233,26 @@ module.exports = class demoController extends nodefony.controller {
    *  @Route ("/xmlAsyncResponse",
    *      name="xmlAsyncResponse")
    */
-  rawResponseAsyncAction() {
-    let settings = this.kernel.settings;
+  rawResponseAsyncAction () {
+    const {settings} = this.kernel;
 
     // async CALL
-    /*var childHost =*/
-    exec('hostname', (error, stdout /*, stderr*/ ) => {
-      let hostname = stdout;
+    /* var childHost =*/
+    exec("hostname", (error, stdout /* , stderr*/) => {
+      const hostname = stdout;
 
-      let content = '<xml><nodefony>\
-				<kernel name="' + settings.name + '" version="' + settings.system.version + '">\
-					<server type="HTTP" port="' + settings.system.httpPort + '"></server>\
-					<server type="HTTPS" port="' + settings.system.httpsPort + '"></server>\
-					<hostname>' + hostname + '</hostname>\
+      const content = `<xml><nodefony>\
+				<kernel name="${settings.name}" version="${settings.system.version}">\
+					<server type="HTTP" port="${settings.system.httpPort}"></server>\
+					<server type="HTTPS" port="${settings.system.httpsPort}"></server>\
+					<hostname>${hostname}</hostname>\
 				</kernel>\
-				</nodefony></xml>';
+				</nodefony></xml>`;
       return this.renderResponseAsync(content, 200, {
         "Content-Type": "Application/xml"
       });
     });
   }
-
 
 
   /*
@@ -266,13 +262,13 @@ module.exports = class demoController extends nodefony.controller {
    *  @Route ("/syscall",
    *      name="syscall")
    */
-  syscallAction() {
-    let tab = [];
+  syscallAction () {
+    const tab = [];
     // system call  exec synchrone hostname
-    tab.push(new Promise(function (resolve, reject) {
+    tab.push(new Promise((resolve, reject) => {
       try {
-        let childHost = execSync('hostname');
-        let res = childHost.toString();
+        const childHost = execSync("hostname");
+        const res = childHost.toString();
         resolve(res);
         return res;
       } catch (e) {
@@ -281,41 +277,39 @@ module.exports = class demoController extends nodefony.controller {
     }));
 
     // exec PWD
-    tab.push(new Promise((resolve, reject) => {
-      return exec("pwd", (error, stdout, stderr) => {
-        if (error) {
-          return reject(error);
-        }
-        if (stderr) {
-          this.log(stderr, "ERROR");
-        }
-        return resolve(stdout);
-      });
-    }));
+    tab.push(new Promise((resolve, reject) => exec("pwd", (error, stdout, stderr) => {
+      if (error) {
+        return reject(error);
+      }
+      if (stderr) {
+        this.log(stderr, "ERROR");
+      }
+      return resolve(stdout);
+    })));
 
 
     // system call  spawn ping
-    tab.push(new Promise((resolve /*, reject*/ ) => {
-      let du = spawn('ping', ['-c', "3", "google.com"]);
+    tab.push(new Promise((resolve /* , reject*/) => {
+      const du = spawn("ping", ["-c", "3", "google.com"]);
       let str = "";
       let err = "";
-      //var code = "" ;
+      // var code = "" ;
 
-      du.stdout.on('data', function (data) {
+      du.stdout.on("data", (data) => {
         str += data;
       });
 
-      du.stderr.on('data', (data) => {
+      du.stderr.on("data", (data) => {
         err += data;
-        this.log("ERROR : " + err, "ERROR");
+        this.log(`ERROR : ${err}`, "ERROR");
       });
 
-      du.on('close', (code) => {
+      du.on("close", (code) => {
         code = code;
-        this.log("child process exited with code : " + code, "INFO");
+        this.log(`child process exited with code : ${code}`, "INFO");
         resolve({
           ping: str,
-          code: code,
+          code,
           error: err
         });
       });
@@ -338,14 +332,15 @@ module.exports = class demoController extends nodefony.controller {
         err = result[2].err;
         this.log("PROMISE SYSCALL DONE", "DEBUG");
         return this.render("demo-bundle:demo:exec.html.twig", {
-          hostname: hostname,
-          ping: ping,
-          pwd: pwd,
-          code: code,
+          hostname,
+          ping,
+          pwd,
+          code,
           error: err,
           date: new Date()
         });
-      }).catch((e) => {
+      })
+      .catch((e) => {
         this.log(e, "ERROR");
         this.createException(e);
       });
@@ -358,25 +353,25 @@ module.exports = class demoController extends nodefony.controller {
    *  @Route ("/httpRequest",
    *      name="httpRequest")
    */
-  httpRequestAction() {
+  httpRequestAction () {
     // hide debug bar
     this.hideDebugBar();
-    //this.getResponse().setTimeout(5000)
-    //return
-    let Path = this.generateUrl("xmlAsyncResponse");
-    let host = this.context.request.url.protocol + "//" + this.context.request.url.host + Path;
-    let type = this.context.type;
+    // this.getResponse().setTimeout(5000)
+    // return
+    const Path = this.generateUrl("xmlAsyncResponse");
+    const host = `${this.context.request.url.protocol}//${this.context.request.url.host}${Path}`;
+    const {type} = this.context;
     // cookie session
-    let headers = {};
+    const headers = {};
     if (this.context.session) {
-      headers.Cookie = this.context.session.name + "=" + this.context.session.id;
+      headers.Cookie = `${this.context.session.name}=${this.context.session.id}`;
     }
-    let options = {
+    const options = {
       hostname: this.context.request.url.hostname,
       port: this.context.request.url.port,
       path: Path,
-      method: 'GET',
-      headers: headers
+      method: "GET",
+      headers
     };
     let wrapper = http.request;
     let keepAliveAgent = null;
@@ -388,7 +383,7 @@ module.exports = class demoController extends nodefony.controller {
         keepAlive: true
       });
       // certificat
-      let certificats = this.get("httpsServer").getCertificats();
+      const certificats = this.get("httpsServer").getCertificats();
       nodefony.extend(options, {
         key: certificats.key,
         cert: certificats.cert,
@@ -406,27 +401,27 @@ module.exports = class demoController extends nodefony.controller {
       options.agent = keepAliveAgent;
     }
 
-    let req = wrapper(options, (res) => {
+    const req = wrapper(options, (res) => {
       let bodyRaw = "";
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => {
         this.log(chunk, "DEBUG");
         bodyRaw += chunk;
       });
-      res.on('end', () => {
+      res.on("end", () => {
         this.renderAsync("demo-bundle:demo:httpRequest.html.twig", {
-          host: host,
-          type: type,
-          bodyRaw: bodyRaw,
+          host,
+          type,
+          bodyRaw
         });
       });
     });
-    req.on('error', (e) => {
-      this.log('Problem with request: ' + e.message, "ERROR");
+    req.on("error", (e) => {
+      this.log(`Problem with request: ${e.message}`, "ERROR");
       this.renderAsync("demo-bundle:demo:httpRequest.html.twig", {
-        host: host,
-        type: type,
-        bodyRaw: e,
+        host,
+        type,
+        bodyRaw: e
       });
     });
     req.end();
@@ -437,7 +432,7 @@ module.exports = class demoController extends nodefony.controller {
    *	@method indexRealTimeAction
    *
    */
-  indexRealTimeAction() {
+  indexRealTimeAction () {
     return this.render("demo-bundle:realTime:index.html.twig", {
       title: "realTime"
     });

@@ -1,9 +1,8 @@
-const net = require('net');
-//const xml = require('xml2js');
+const net = require("net");
+// const xml = require('xml2js');
 
 
-
-/*const randomChain = function () {
+/* const randomChain = function () {
   var txt = "";
   //for (var i = 0 ; i < 65481; i++){
   for (var i = 0; i < 35000; i++) {
@@ -14,53 +13,49 @@ const net = require('net');
 }();*/
 
 const Random = class Random {
-
-  constructor(service) {
+  constructor (service) {
     this.service = service;
     this.interval = null;
     this.notificationsCenter = nodefony.notificationsCenter.create();
-
   }
 
-  start(time) {
+  start (time) {
     this.interval = setInterval(() => {
-      let value = parseInt(Math.random() * 100, 10);
-      //value  = randomChain;
-      //this.service.logger(value, "DEBUG");
+      const value = parseInt(Math.random() * 100, 10);
+      // value  = randomChain;
+      // this.service.logger(value, "DEBUG");
       this.notificationsCenter.fire("tic", value);
     }, time || 1000);
   }
 
-  listen(context, callback) {
+  listen (context, callback) {
     this.notificationsCenter.listen(context || this, "tic", callback);
   }
 
-  unListen(callback) {
+  unListen (callback) {
     this.notificationsCenter.unListen("tic", callback);
   }
 
-  stop() {
+  stop () {
     return clearInterval(this.interval);
   }
 };
 
 const connection = class connection {
-
-  constructor(socket) {
+  constructor (socket) {
     this.socket = socket;
-    this.id = socket._handle.fd + "_" + socket.server._connectionKey;
+    this.id = `${socket._handle.fd}_${socket.server._connectionKey}`;
     this.readable = socket.readable;
     this.writable = socket.writable;
   }
 
-  write(data) {
+  write (data) {
     this.socket.write(data);
   }
 };
 
 module.exports = class random {
-  constructor(realTime, container, kernel) {
-
+  constructor (realTime, container, kernel) {
     this.realTime = realTime;
     this.kernel = kernel;
     if (!this.realTime) {
@@ -71,13 +66,13 @@ module.exports = class random {
     this.random = new Random(this);
     this.name = "random";
     this.status = "disconnect";
-    //this.nbConnections = 0 ;
+    // this.nbConnections = 0 ;
     this.connections = [];
     this.domain = kernel.domain;
     this.port = 1315;
     this.server = null;
 
-    this.kernel.once( "onReady", () => {
+    this.kernel.once("onReady", () => {
       if (this.kernel.type === "SERVER") {
         this.port = this.container.getParameters("bundles.realtime.services.random.port") || 1315;
         this.createServer();
@@ -86,7 +81,7 @@ module.exports = class random {
     });
   }
 
-  log(pci, severity, msgid) {
+  log (pci, severity, msgid) {
     if (!msgid) {
       msgid = "RANDOM";
     }
@@ -97,11 +92,11 @@ module.exports = class random {
     }
   }
 
-  stopServer() {
+  stopServer () {
     this.stopped = true;
     for (let i = 0; i < this.connections.length; i++) {
       this.connections[i].socket.end();
-      let id = this.connections[i].id;
+      const {id} = this.connections[i];
       delete this.connections[id];
     }
     this.connections.length = 0;
@@ -114,31 +109,31 @@ module.exports = class random {
     }
   }
 
-  createServer() {
+  createServer () {
     this.server = net.createServer({
       allowHalfOpen: true
     }, (socket) => {
-      //var d = nodedomain.create();
-      //d.on('error', (er) => {
+      // var d = nodedomain.create();
+      // d.on('error', (er) => {
       //	this.realTime.logger(er.stack);
-      //});
-      //d.add(socket);
-      //d.run(() => {
+      // });
+      // d.add(socket);
+      // d.run(() => {
       socket.write("READY");
       this.stopped = false;
-      //});
+      // });
     });
 
     /*
      *	EVENT CONNECTIONS
      */
     this.server.on("connection", (socket) => {
-      this.log("CONNECT TO SERVICE RANDOM FROM : " + socket.remoteAddress, "INFO");
-      let conn = new connection(socket);
+      this.log(`CONNECT TO SERVICE RANDOM FROM : ${socket.remoteAddress}`, "INFO");
+      const conn = new connection(socket);
       this.connections.push(conn);
       this.connections[conn.id] = this.connections[this.connections.length - 1];
       let closed = false;
-      let callback = (value) => {
+      const callback = (value) => {
         try {
           if (closed || this.stopped) {
             return;
@@ -150,10 +145,10 @@ module.exports = class random {
       };
       this.random.listen(this, callback);
 
-      socket.on('end', () => {
-        //console.log(arguments)
+      socket.on("end", () => {
+        // console.log(arguments)
         closed = true;
-        this.log("CLOSE CONNECTION TO SERVICE RANDOM FROM : " + socket.remoteAddress + " ID :" + conn.id, "INFO");
+        this.log(`CLOSE CONNECTION TO SERVICE RANDOM FROM : ${socket.remoteAddress} ID :${conn.id}`, "INFO");
         this.random.unListen(callback);
         socket.end();
         this.server.getConnections((err, nb) => {
@@ -166,7 +161,7 @@ module.exports = class random {
 
       socket.on("data", (buffer) => {
         try {
-          let message = this.protocol.onMessage(buffer.toString());
+          const message = this.protocol.onMessage(buffer.toString());
           switch (message.method) {
           case "start":
             this.server.getConnections((err, nb) => {
@@ -188,8 +183,8 @@ module.exports = class random {
             break;
           }
         } catch (e) {
-          //conn.write(this.protocol.methodError(e.message, message.id));
-          this.log("message :" + buffer.toString() + " error : " + e.message, "ERROR");
+          // conn.write(this.protocol.methodError(e.message, message.id));
+          this.log(`message :${buffer.toString()} error : ${e.message}`, "ERROR");
         }
       });
     });
@@ -197,23 +192,23 @@ module.exports = class random {
     /*
      *	EVENT CLOSE
      */
-    this.server.on("close", ( /*socket*/ ) => {
+    this.server.on("close", (/* socket*/) => {
       this.stopped = true;
-      this.realTime.log("SHUTDOWN server RANDOM listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+      this.realTime.log(`SHUTDOWN server RANDOM listen on Domain : ${this.domain} Port : ${this.port}`, "INFO");
     });
 
     /*
      *	EVENT ERROR
      */
     this.server.on("error", (error) => {
-      let myError = new nodefony.Error(error);
+      const myError = new nodefony.Error(error);
       switch (error.errno) {
       case "ENOTFOUND":
-        this.log("CHECK DOMAIN IN /etc/hosts or config unable to connect to : " + this.domain, "ERROR");
+        this.log(`CHECK DOMAIN IN /etc/hosts or config unable to connect to : ${this.domain}`, "ERROR");
         this.log(myError, "CRITIC");
         break;
       case "EADDRINUSE":
-        this.log("Domain : " + this.domain + " Port : " + this.port + " ==> ALREADY USE ", "ERROR");
+        this.log(`Domain : ${this.domain} Port : ${this.port} ==> ALREADY USE `, "ERROR");
         this.log(myError, "CRITIC");
         setTimeout(() => {
           this.server.close();
@@ -228,13 +223,13 @@ module.exports = class random {
      *	LISTEN ON DOMAIN
      */
     this.server.listen(this.port, this.domain, () => {
-      this.realTime.log("Create server RANDOM listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+      this.realTime.log(`Create server RANDOM listen on Domain : ${this.domain} Port : ${this.port}`, "INFO");
     });
 
     /*
      *  KERNEL EVENT TERMINATE
      */
-    this.kernel.once( "onTerminate", () => {
+    this.kernel.once("onTerminate", () => {
       this.stopServer();
     });
   }

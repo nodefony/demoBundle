@@ -3,8 +3,7 @@
  */
 
 module.exports = class loginController extends nodefony.controller {
-
-  constructor(container, context) {
+  constructor (container, context) {
     super(container, context);
     this.startSession();
   }
@@ -14,10 +13,10 @@ module.exports = class loginController extends nodefony.controller {
    *	DEMO login
    *
    */
-  loginAction(type) {
-    let log = {};
+  loginAction (type) {
+    const log = {};
     if (this.context.session) {
-      let error = this.context.session.getFlashBag("error");
+      const error = this.context.session.getFlashBag("error");
       if (error) {
         log.error = error;
       }
@@ -30,5 +29,4 @@ module.exports = class loginController extends nodefony.controller {
       return this.render("framework::401.html.twig", log);
     }
   }
-
 };

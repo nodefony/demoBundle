@@ -1,14 +1,15 @@
-const net = require('net');
+const net = require("net");
 
 const connection = class connection {
-  constructor(socket) {
+  constructor (socket) {
     this.socket = socket;
-    this.id = socket._handle.fd + "_" + socket.server._connectionKey;
+    this.id = `${socket._handle.fd}_${socket.server._connectionKey}`;
     this.readable = socket.readable;
     this.writable = socket.writable;
   }
-  write(data) {
-    this.socket.write(data + "");
+
+  write (data) {
+    this.socket.write(`${data}`);
   }
 };
 
@@ -19,9 +20,7 @@ const connection = class connection {
  *
  */
 module.exports = class dmsg {
-
-  constructor(realTime, container, kernel) {
-
+  constructor (realTime, container, kernel) {
     this.realTime = realTime;
     this.kernel = kernel;
     if (!this.realTime) {
@@ -47,14 +46,14 @@ module.exports = class dmsg {
     });
   }
 
-  log(pci, severity, msgid) {
+  log (pci, severity, msgid) {
     if (!msgid) {
       msgid = "DMSG";
     }
     return this.realTime.log(pci, severity, "SERVICE DMSG");
   }
 
-  createWatcher() {
+  createWatcher () {
     try {
       this.watcher = new nodefony.Watcher(null, {
         persistent: true,
@@ -64,46 +63,45 @@ module.exports = class dmsg {
         binaryInterval: 300
       }, this.container);
 
-      this.watcher.on('onError', (error) => {
+      this.watcher.on("onError", (error) => {
         this.realTime.log(error, "ERROR");
       });
-      this.watcher.on('onClose', ( /*watcher*/ ) => {
-        //this.realTime.logger(watcher);
+      this.watcher.on("onClose", (/* watcher*/) => {
+        // this.realTime.logger(watcher);
       });
     } catch (e) {
       this.log(e, "ERROR");
     }
-
   }
 
-  createServer() {
+  createServer () {
     this.server = net.createServer({
-      //allowHalfOpen : true
+      // allowHalfOpen : true
     }, (socket) => {
       let conn = new connection(socket);
       this.connections[conn.fd] = conn;
-      let callback = (path /*, stat*/ ) => {
+      const callback = (path /* , stat*/) => {
         let lastLine = null;
         try {
-          //this.realTime.logger(stat.size, "DEBUG","SEVICE DMSG");
+          // this.realTime.logger(stat.size, "DEBUG","SEVICE DMSG");
           if (conn) {
-            var file = new nodefony.fileClass(path);
+            const file = new nodefony.fileClass(path);
             if (file) {
-              var content = file.content();
-              //console.log(content)
-              var lines = content.trim().split('\n');
+              const content = file.content();
+              // console.log(content)
+              const lines = content.trim().split("\n");
               lastLine = lines.slice(-1)[0];
             }
             conn.write(lastLine);
-            //conn.write(stat.size);
+            // conn.write(stat.size);
           }
         } catch (e) {
           this.log(e, "ERROR");
         }
       };
-      this.watcher.listen(this, 'onChange', callback);
-      socket.on('end', () => {
-        this.log("CLOSE CONNECTION TO SERVICE DMSG FROM : " + socket.remoteAddress + " ID :" + conn.id, "INFO");
+      this.watcher.listen(this, "onChange", callback);
+      socket.on("end", () => {
+        this.log(`CLOSE CONNECTION TO SERVICE DMSG FROM : ${socket.remoteAddress} ID :${conn.id}`, "INFO");
         delete this.connections[conn.fd];
         this.watcher.removeListener("onChange", callback);
         conn = null;
@@ -113,12 +111,12 @@ module.exports = class dmsg {
         }
         socket.end();
       });
-      conn.write("WATCHER READY : " + this.fileDmsg);
+      conn.write(`WATCHER READY : ${this.fileDmsg}`);
     });
 
     this.server.on("connection", (socket) => {
-      this.log("CONNECT TO SERVICE DMSG FROM : " + socket.remoteAddress, "INFO");
-      socket.on("data", ( /*buffer*/ ) => {
+      this.log(`CONNECT TO SERVICE DMSG FROM : ${socket.remoteAddress}`, "INFO");
+      socket.on("data", (/* buffer*/) => {
         try {
           if (this.nbConnections === 0) {
             this.watcher.watch(this.fileDmsg);
@@ -135,14 +133,14 @@ module.exports = class dmsg {
      *	EVENT ERROR
      */
     this.server.on("error", (error) => {
-      let myError = new nodefony.Error(error);
+      const myError = new nodefony.Error(error);
       switch (error.errno) {
       case "ENOTFOUND":
-        this.log("CHECK DOMAIN IN /etc/hosts or config unable to connect to : " + this.domain, "ERROR");
+        this.log(`CHECK DOMAIN IN /etc/hosts or config unable to connect to : ${this.domain}`, "ERROR");
         this.log(myError, "CRITIC");
         break;
       case "EADDRINUSE":
-        this.log("Domain : " + this.domain + " Port : " + this.port + " ==> ALREADY USE ", "ERROR");
+        this.log(`Domain : ${this.domain} Port : ${this.port} ==> ALREADY USE `, "ERROR");
         this.log(myError, "CRITIC");
         setTimeout(() => {
           this.server.close();
@@ -156,8 +154,8 @@ module.exports = class dmsg {
     /*
      *	EVENT CLOSE
      */
-    this.server.on("close", ( /*socket*/ ) => {
-      this.realTime.log("SHUTDOWN server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+    this.server.on("close", (/* socket*/) => {
+      this.realTime.log(`SHUTDOWN server DMSG listen on Domain : ${this.domain} Port : ${this.port}`, "INFO");
     });
 
 
@@ -165,17 +163,16 @@ module.exports = class dmsg {
      *	LISTEN ON DOMAIN
      */
     this.server.listen(this.port, this.domain, () => {
-      this.realTime.log("Create server DMSG listen on Domain : " + this.domain + " Port : " + this.port, "INFO");
+      this.realTime.log(`Create server DMSG listen on Domain : ${this.domain} Port : ${this.port}`, "INFO");
     });
 
     this.kernel.once("onTerminate", () => {
       this.stopServer();
     });
-
   }
 
-  stopServer() {
-    for (var connection in this.connections) {
+  stopServer () {
+    for (const connection in this.connections) {
       this.connections[connection].socket.end();
       delete this.connections[connection];
     }
