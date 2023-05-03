@@ -18,8 +18,8 @@
     "url": "https://github.com/nodefony/help/issues"
   },
   "dependencies": {
-    "@babel/core": "7.21.4",
-    "@babel/preset-env": "7.21.4",
+    "@babel/core": "7.21.8",
+    "@babel/preset-env": "7.21.5",
     "@nodefony/stage": "^0.2.4",
     "babel-loader": "9.1.2",
     "bootstrap": "=3.3.7",
@@ -33,7 +33,7 @@
     "nodefony-client": "6.0.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "terser-webpack-plugin": "5.3.7",
-    "webpack": "5.79.0",
+    "webpack": "5.81.0",
     "webpack-merge": "^5.8.0"
   },
   "license": "CECILL-B",
